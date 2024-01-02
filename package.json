@@ -7,7 +7,8 @@
     "dev": "nodemon -w app.js -w utils/ app.js",
     "build": "next build",
     "start": "NODE_ENV=production node app.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "git pull && yarn && NODE_ENV=production next build && pm2 reload faithway-sc --update-env"
   },
   "author": "",
   "license": "ISC",
