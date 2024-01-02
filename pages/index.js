@@ -220,10 +220,10 @@ const HomePage = () => {
       <Modal.Body>
         <Table bordered  size="sm">
           <tbody>
-            <tr><td>Full Name</td><td><strong>{formValue.fullName}</strong></td></tr>
+            <tr><td width={110}>Full Name</td><td><strong>{formValue.fullName}</strong></td></tr>
             <tr><td>Gender</td><td><strong>{formValue.gender}</strong></td></tr>
             <tr><td>Church</td><td><strong>{formValue.church}</strong></td></tr>
-            <tr><td>Grade Level</td><td><strong>{formValue.grade}</strong></td></tr>
+            <tr><td>Grade</td><td><strong>{formValue.grade}</strong></td></tr>
           </tbody>
         </Table>
         <Panel header="Participation Events" bordered>
