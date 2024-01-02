@@ -15,12 +15,12 @@ import {
   Schema,
   Panel,
   Modal,
-  List,
   TagGroup,
   Tag,
   Notification, 
   useToaster
 } from 'rsuite';
+import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import MainLayout from '../components/Layouts/MainLayout';
 import { grades } from '../utils/InputData'; 
 import events from '@/utils/events';
@@ -29,8 +29,9 @@ const HomePage = () => {
 
   const toaster = useToaster();
   const formRef = useRef();
+  const emailRef = useRef();
   const { regState, regDispatch } = useContext(RegistrationContext)
-  const { formValue, togglePreview } = regState;
+  const { formValue, togglePreview, isSubmitted } = regState;
   const selectedEvents = [...formValue.academics, ...formValue.arts, ...formValue.athletics, ...formValue.speech, ...formValue.vocal, ...formValue.instrumental];
   const countedSelectedEvents = selectedEvents.flatMap((i) => getCategory(i) != 'arts' && isExcludedEvent(i)  ? i :[])
 
@@ -159,6 +160,19 @@ const HomePage = () => {
 
   const model = Schema.Model(schemaModel);
 
+  const handleSubmitRegistration = () => {
+    if (!emailRef.current.check()) return toaster.push(notify({
+      type:"error",
+      header: "Error",
+      message: "Please enter a valid email."
+    }), {placement: 'bottomEnd'});
+
+    // TODO: Handle backend call...
+
+    regDispatch({type: "SUBMIT_SUCCESS"})
+    console.log(formValue);
+  } 
+
   return <MainLayout
     header="Student Registration"
   >
@@ -228,37 +242,69 @@ const HomePage = () => {
         <Modal.Title><strong>Review Registration</strong></Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
-        <Table bordered  size="sm">
-          <tbody>
-            <tr><td width={110}>Full Name</td><td><strong>{formValue.fullName}</strong></td></tr>
-            <tr><td>Gender</td><td><strong>{formValue.gender}</strong></td></tr>
-            <tr><td>Church</td><td><strong>{formValue.church}</strong></td></tr>
-            <tr><td>Grade</td><td><strong>{formValue.grade}</strong></td></tr>
-          </tbody>
-        </Table>
-        <Panel header="Participation Events" bordered>
-          <TagGroup>
-            { displayTags() }
-          </TagGroup>
-        </Panel>
-        <br/>
-        <Form fluid>
-          <Form.Group controlId="email">
-            <Form.ControlLabel>Email</Form.ControlLabel>
-            <Form.Control name="email" placeholder="youremail@site.com"/>
-            <Form.HelpText>We will send you a registration confirmation and a copy of your registration information.</Form.HelpText>
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={() => regDispatch({type: "TOGGLE_PREVIEW"})} appearance="subtle">
-          Go Back
-        </Button>
-        <Button onClick={() => {}} appearance="primary">
-          Submit Registration
-        </Button>
-      </Modal.Footer>
+      {
+        isSubmitted ?
+          <>
+            <Modal.Body>
+              <Panel bordered>
+                <br/>
+                <br/>
+                <center><CheckOutlineIcon color='green' width="4em" height="auto"/></center>
+                <br/>
+                <center><h4>Thank you for registering for the 2024 Christian Student Convention!</h4></center>
+                <center><p>You are all set. You'll receive an email with your registration details.<br/> We look forward to seeing you there!</p></center>
+                <br/>
+                <br/>
+              </Panel>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => regDispatch({type: "RESET_FORM"})} appearance="primary">
+                Submit Another Student
+              </Button>
+            </Modal.Footer>
+          </>
+        :
+          <>
+            <Modal.Body>
+              <Table bordered  size="sm">
+                <tbody>
+                  <tr><td width={110}>Full Name</td><td><strong>{formValue.fullName}</strong></td></tr>
+                  <tr><td>Gender</td><td><strong>{formValue.gender}</strong></td></tr>
+                  <tr><td>Church</td><td><strong>{formValue.church}</strong></td></tr>
+                  <tr><td>Grade</td><td><strong>{formValue.grade}</strong></td></tr>
+                </tbody>
+              </Table>
+              <Panel header={`Participation Events (${selectedEvents.length})`} bordered>
+                <TagGroup>
+                  { displayTags() }
+                </TagGroup>
+              </Panel>
+              <br/>
+              <Form 
+                model={Schema.Model({email: Schema.Types.StringType().isEmail('Please enter a valid email address.')})}
+                ref={emailRef}
+                formValue={formValue}
+                onChange={formValue => handleFormChange(formValue)}
+                fluid
+              >
+                <Form.Group controlId="email">
+                  <Form.ControlLabel>Email</Form.ControlLabel>
+                  <Form.Control name="email" placeholder="youremail@site.com"/>
+                  <Form.HelpText>We will send you a registration confirmation and a copy of your registration information.</Form.HelpText>
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => regDispatch({type: "TOGGLE_PREVIEW"})} appearance="subtle">
+                Go Back
+              </Button>
+              <Button onClick={() => handleSubmitRegistration()} appearance="primary">
+                Submit Registration
+              </Button>
+            </Modal.Footer>
+          </>
+      }
+      
     </Modal>
   </MainLayout>
 }

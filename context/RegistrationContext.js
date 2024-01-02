@@ -14,9 +14,11 @@ const initialState = {
     speech: [],
     vocal:[],
     instrumental: [],
-    mathGrade: ''
+    mathGrade: '',
+    email: ""
   },
-  togglePreview: false
+  togglePreview: false,
+  isSubmitted: false
 }
 
 function reducer(state, action) {
@@ -42,6 +44,12 @@ function reducer(state, action) {
     }
   case "RESET_FORM":
     return initialState;
+  case "SUBMIT_SUCCESS":
+    return {
+      ...initialState,
+      togglePreview: true,
+      isSubmitted: true,
+    }
   default:
     return state;
   }
