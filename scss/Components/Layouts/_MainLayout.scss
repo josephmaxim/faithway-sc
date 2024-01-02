@@ -2,12 +2,13 @@
   @include small {
     .navbar {
       overflow: auto;
-      margin-bottom: 20px;
+      margin-bottom: 0px;
       padding: 30px 0px 20px 0px;
       .container {
         overflow: auto;
         display: flex;
         flex-direction: column;
+        width: 100%;
 
         .logo {
           // height: 50px;
@@ -22,7 +23,7 @@
             font-weight: 700;
           }
           h2 {
-            margin: 0;
+            margin: 10px 0 0 0;
             font-size: 18px;
           }
         }

@@ -1,4 +1,5 @@
 import { useContext, Fragment, useRef } from 'react';
+import Link from 'next/link';
 import RegistrationProvider, { RegistrationContext } from '../context/RegistrationContext';
 import Divider from 'rsuite/Divider';
 import { Container, Row, Col, Table } from 'reactstrap';
@@ -153,7 +154,12 @@ const HomePage = () => {
 
   const model = Schema.Model(schemaModel);
 
-  return <MainLayout>
+  return <MainLayout
+    header="Student Registration"
+  >
+    <div className="container">
+      <p>For more information please see <Link href="/student-guidelines">General Student Guidelines</Link></p>
+    </div>
     <Form
       ref={formRef}
       formValue={formValue}
