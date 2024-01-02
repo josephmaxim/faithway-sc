@@ -1,9 +1,10 @@
 import { useContext, Fragment, useRef } from 'react';
 import RegistrationProvider, {RegistrationContext} from '../context/RegistrationContext';
-import Grid from 'rsuite/Grid';
-import Row from 'rsuite/Row';
-import Col from 'rsuite/Col';
+// import Grid from 'rsuite/Grid';
+// import Row from 'rsuite/Row';
+// import Col from 'rsuite/Col';
 import Divider from 'rsuite/Divider';
+import { Container, Row, Col } from 'reactstrap';
 import {
   Form,
   Button,
@@ -13,6 +14,7 @@ import {
   Checkbox,
   CheckboxGroup,
   Slider,
+  Stack,
   DatePicker,
   DateRangePicker,
   CheckPicker,
@@ -83,9 +85,9 @@ const HomePage = () => {
             }
           </Fragment> 
         })
-        return <Col key={key} lg={8} xs={24}>
+        return <Col key={key} sm="12" lg="4">
           <Form.Group controlId={col}>
-            <Form.ControlLabel>{col[0].toUpperCase() + col.substring(1)}</Form.ControlLabel>
+            <Form.ControlLabel><div className="option-title">{col[0].toUpperCase() + col.substring(1)}</div></Form.ControlLabel>
             <Form.Control name={col} accepter={CheckboxGroup}>
               { checkboxItem }
             </Form.Control>
@@ -123,7 +125,7 @@ const HomePage = () => {
   const handleReviewRegistration = () => {
     if (!formRef.current.check()) return toaster.push(notify({
       type:"error",
-      header: "Warning",
+      header: "Error",
       message: "Please fill out the required fields."
     }), {placement: 'bottomEnd'});
 
@@ -142,6 +144,16 @@ const HomePage = () => {
     }), {placement: 'bottomEnd'});
 
     regDispatch({type: "TOGGLE_PREVIEW"})
+  }
+
+  const handleFormReset = () => {
+    toaster.push(notify({
+      type:"info",
+      header: "Form has been reset.",
+      // message: "Form has been reset."
+    }), {placement: 'bottomEnd'});
+
+    regDispatch({type: "RESET_FORM"})
   }
 
   let schemaModel = {
@@ -163,15 +175,15 @@ const HomePage = () => {
       model={model}
       fluid
     >
-      <Grid fluid>
+      <Container>
         <Row>
-          <Col lg={18} xs={24}>
+          <Col sm="12" lg="9">
             <Form.Group controlId="fullName">
               <Form.ControlLabel>Full Name</Form.ControlLabel>
               <Form.Control name="fullName" />
             </Form.Group>
           </Col>
-          <Col lg={6} xs={24}>
+          <Col sm="12" lg="3">
             <Form.Group controlId="gender">
               <Form.ControlLabel>Gender</Form.ControlLabel>
               <Form.Control name="gender" accepter={RadioGroup} inline>
@@ -181,33 +193,38 @@ const HomePage = () => {
             </Form.Group>
           </Col>
         </Row>
-        <br/>
+
         <Row>
-          <Col lg={18} xs={24}>
+          <Col sm="12" lg="9">
             <Form.Group controlId="church">
               <Form.ControlLabel>Church</Form.ControlLabel>
               <Form.Control name="church" />
             </Form.Group>
           </Col>
-          <Col lg={6} xs={24}>
+          <Col sm="12" lg="3">
             <Form.Group controlId="grade">
               <Form.ControlLabel>Grade</Form.ControlLabel>
-              <Form.Control name="grade" accepter={InputPicker} data={grades}/>
+              <Form.Control name="grade" accepter={InputPicker} data={grades} block/>
             </Form.Group>
           </Col>
         </Row>
-      </Grid>
-      <Divider />
-      <Grid fluid>
+      </Container>
+      <br/>
+      <br/>
+      <Container>
         {
           displayFormOptions()
         }
-      </Grid>
-      <Divider />
-      <ButtonToolbar>
-        <Button appearance="primary" onClick={handleReviewRegistration}>Review Registration</Button>
-        <Button appearance="default">Reset Form</Button>
-      </ButtonToolbar>
+      </Container>
+
+      <Container>
+        <Divider />
+        <ButtonToolbar>
+          <Button appearance="primary" onClick={handleReviewRegistration}>Review Registration</Button>
+          <Button appearance="default" onClick={handleFormReset}>Reset Form</Button>
+        </ButtonToolbar>
+      </Container>
+      
     </Form>
     <Modal size="lg" backdrop="static" keyboard={false} open={togglePreview} onClose={() => regDispatch({type: "TOGGLE_PREVIEW"})}>
       <Modal.Header>

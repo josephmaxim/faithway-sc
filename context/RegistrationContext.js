@@ -40,6 +40,8 @@ function reducer(state, action) {
       ...state,
       togglePreview: !state.togglePreview
     }
+  case "RESET_FORM":
+    return initialState;
   default:
     return state;
   }

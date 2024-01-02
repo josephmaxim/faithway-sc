@@ -1,50 +1,26 @@
-import Container from 'rsuite/Container';
-import Header from 'rsuite/Header';
-import Content from 'rsuite/Content';
-import Footer from 'rsuite/Footer';
+import Link from 'next/link';
 
-import FlexboxGrid from 'rsuite/FlexboxGrid';
-import Row from 'rsuite/Row';
-import Col from 'rsuite/Col';
-import Grid from 'rsuite/Grid';
-
-const Wrapper = ({children}) => <FlexboxGrid justify="center">
-  <FlexboxGrid.Item as={Col} xs={24} md={24} xl={13}>
-    {children}
-  </FlexboxGrid.Item>
-</FlexboxGrid>
+import MainFooter from '@/components/Footers/MainFooter';
 
 const MainLayout = (props) => {
-  return <Container>
-    <Header>
-      <Wrapper>
-        <Grid fluid>
-          <Row>
-            <Col xs={24}>
-              <h1>Christian Student Convention</h1>
-              <h4>Student Registration</h4>
-            </Col>
-          </Row>
-        </Grid>
-      </Wrapper>
-    </Header>
-    <Content>
-      <Wrapper>
-        {props.children}
-      </Wrapper>
-    </Content>
-    <Footer>
-      <Wrapper>
-        <Grid fluid>
-          <Row>
-            <Col xs={24}>
-              <p>Christian Student Convention - FaithWay Baptist Church | Student Registration</p>
-            </Col>
-          </Row>
-        </Grid>
-      </Wrapper>
-    </Footer>
-  </Container>
+
+  return <main className="main-layout">
+    <div className="navbar">
+      <div className="container">
+        <div className="logo">
+          <h1>Christian Student Convention</h1>
+        </div>
+        {/* <div className="links">
+          <Link href="/">Registration</Link>
+          <Link href="/">General Guidelines</Link>
+        </div> */}
+      </div>
+    </div>
+    <div className="content">
+      {props.children}
+    </div>
+    <MainFooter/>
+  </main>
 }
 
 export default MainLayout;
