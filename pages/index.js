@@ -32,7 +32,12 @@ const HomePage = () => {
   const { regState, regDispatch } = useContext(RegistrationContext)
   const { formValue, togglePreview } = regState;
   const selectedEvents = [...formValue.academics, ...formValue.arts, ...formValue.athletics, ...formValue.speech, ...formValue.vocal, ...formValue.instrumental];
-  const countedSelectedEvents = selectedEvents.flatMap((i) => getCategory(i) != 'arts' ? i :[])
+  const countedSelectedEvents = selectedEvents.flatMap((i) => getCategory(i) != 'arts' && isExcludedEvent(i)  ? i :[])
+
+  function isExcludedEvent(ev){
+    const excludedEvents = ['essayWriting_a', 'essayWriting_b', 'poetryWriting_a', 'poetryWriting_b','shortStoryWriting_a', 'shortStoryWriting_b'];
+    return !excludedEvents.includes(ev)
+  }
 
   const handleFormChange = (value) => {
     regDispatch({type: "SET_FORM", payload: {value: value}})
@@ -127,7 +132,7 @@ const HomePage = () => {
     if(countedSelectedEvents.length > 9) return  toaster.push(notify({
       type:"error",
       header: "Error",
-      message: "A student may only enter a maximum of 9 participation events excluding those events finished before Convention. (Arts category)"
+      message: "A student may enter a maximum of 9 participation events EXCLUDING those events finished before Convention (needlework, sketching, etc.)."
     }), {placement: 'bottomEnd'});
 
     regDispatch({type: "TOGGLE_PREVIEW"})
