@@ -160,7 +160,7 @@ const HomePage = () => {
 
   const model = Schema.Model(schemaModel);
 
-  const handleSubmitRegistration = () => {
+  const handleSubmitRegistration = async () => {
     if (!emailRef.current.check()) return toaster.push(notify({
       type:"error",
       header: "Error",
@@ -249,7 +249,7 @@ const HomePage = () => {
               <Panel bordered>
                 <br/>
                 <br/>
-                <center><CheckOutlineIcon color='green' width="4em" height="auto"/></center>
+                <center><CheckOutlineIcon color='green' width="4em" height="4em"/></center>
                 <br/>
                 <center><h4>Thank you for registering for the 2024 Christian Student Convention!</h4></center>
                 <center><p>You are all set. You'll receive an email with your registration details.<br/> We look forward to seeing you there!</p></center>
@@ -281,7 +281,7 @@ const HomePage = () => {
               </Panel>
               <br/>
               <Form 
-                model={Schema.Model({email: Schema.Types.StringType().isEmail('Please enter a valid email address.')})}
+                model={Schema.Model({email: Schema.Types.StringType().isRequired().isEmail('Please enter a valid email address.')})}
                 ref={emailRef}
                 formValue={formValue}
                 onChange={formValue => handleFormChange(formValue)}
