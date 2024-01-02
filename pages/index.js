@@ -171,7 +171,7 @@ const HomePage = () => {
 
     regDispatch({type: "SUBMIT_SUCCESS"})
     console.log(formValue);
-  } 
+  }
 
   return <MainLayout
     header="Student Registration"
@@ -258,7 +258,14 @@ const HomePage = () => {
               </Panel>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={() => regDispatch({type: "RESET_FORM"})} appearance="primary">
+              <Button 
+                onClick={() => {
+                  regDispatch({type: "RESET_FORM"});
+                  document.body.scrollTop = 0;
+                  document.documentElement.scrollTop = 0;
+                }} 
+                appearance="primary"
+              >
                 Submit Another Student
               </Button>
             </Modal.Footer>
