@@ -1,10 +1,7 @@
 import { useContext, Fragment, useRef } from 'react';
-import RegistrationProvider, {RegistrationContext} from '../context/RegistrationContext';
-// import Grid from 'rsuite/Grid';
-// import Row from 'rsuite/Row';
-// import Col from 'rsuite/Col';
+import RegistrationProvider, { RegistrationContext } from '../context/RegistrationContext';
 import Divider from 'rsuite/Divider';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Table } from 'reactstrap';
 import {
   Form,
   Button,
@@ -13,18 +10,7 @@ import {
   Radio,
   Checkbox,
   CheckboxGroup,
-  Slider,
-  Stack,
-  DatePicker,
-  DateRangePicker,
-  CheckPicker,
-  SelectPicker,
-  TagPicker,
   InputPicker,
-  Cascader,
-  MultiCascader,
-  Rate,
-  Uploader,
   Schema,
   Panel,
   Modal,
@@ -232,18 +218,27 @@ const HomePage = () => {
       </Modal.Header>
 
       <Modal.Body>
-        <List size="sm">
-          <List.Item>Full Name: <strong>{formValue.fullName}</strong></List.Item>
-          <List.Item>Gender: <strong>{formValue.gender}</strong></List.Item>
-          <List.Item>Church: <strong>{formValue.church}</strong></List.Item>
-          <List.Item>Grade Level: <strong>{formValue.grade}</strong></List.Item>
-        </List>
-        <br/>
+        <Table bordered  size="sm">
+          <tbody>
+            <tr><td>Full Name</td><td><strong>{formValue.fullName}</strong></td></tr>
+            <tr><td>Gender</td><td><strong>{formValue.gender}</strong></td></tr>
+            <tr><td>Church</td><td><strong>{formValue.church}</strong></td></tr>
+            <tr><td>Grade Level</td><td><strong>{formValue.grade}</strong></td></tr>
+          </tbody>
+        </Table>
         <Panel header="Participation Events" bordered>
           <TagGroup>
             { displayTags() }
           </TagGroup>
         </Panel>
+        <br/>
+        <Form fluid>
+          <Form.Group controlId="email">
+            <Form.ControlLabel>Email</Form.ControlLabel>
+            <Form.Control name="email" placeholder="youremail@site.com"/>
+            <Form.HelpText>We will send you a registration confirmation and a copy of your registration information.</Form.HelpText>
+          </Form.Group>
+        </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => regDispatch({type: "TOGGLE_PREVIEW"})} appearance="subtle">

@@ -9,6 +9,7 @@ const MainLayout = (props) => {
       <div className="container">
         <div className="logo">
           <h1>Christian Student Convention</h1>
+          <h2>Registration Form</h2>
         </div>
         {/* <div className="links">
           <Link href="/">Registration</Link>

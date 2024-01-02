@@ -4,8 +4,8 @@ const MainFooter = () => {
   return <div className="main-footer">
     <div className="container">
       <div className="credits">
-        <div>Christian Student Convention 2024 | <Link href="https://faithway.org" target="_blank">FaithWay.org</Link></div>
-        <div className="maker">Site by <Link href="https://josephmaxim.com" target="_blank">Joseph Maxim</Link></div>
+        <div>2024 Christian Student Convention</div>
+        <div className="maker"><Link href="https://www.faithway.org" target="_blank">www.FaithWay.org</Link></div>
       </div>
     </div>
   </div>
