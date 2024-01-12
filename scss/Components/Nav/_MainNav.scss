@@ -1,0 +1,31 @@
+.main-nav {
+  @include small {
+    background: #f9f9f9;
+
+    .navbar-brand {
+      color: #222222 !important;
+      font-weight: 800;
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+
+    .navbar-toggler {
+      padding: 0px;
+      border: 0px;
+      outline: none;
+      .navbar-toggler-icon {
+        width: 35px;
+        height: 35px;
+      }
+      &:focus {
+        box-shadow: none;
+        background: #FFFFFF;
+      }
+    }
+  }
+  @include large {
+    .navbar-brand {
+      font-size: 22px;
+    }
+  }
+}
