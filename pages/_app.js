@@ -1,7 +1,5 @@
 import Head from 'next/head'
 
-import 'rsuite/dist/rsuite-no-reset.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/scss/root.scss';
 
 export default function App({ Component, pageProps }) {
