@@ -93,7 +93,7 @@ const BilletingPage = () => {
             onKeyDown={(e) => handleAddItem(e)}
           />
         </Col>
-        <Col sm="12" lg="2">
+        <Col sm="12" lg="2" className="add-item-btn">
           <Button 
             startIcon={<PlusIcon />} 
             appearance="default"

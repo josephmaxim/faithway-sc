@@ -67,26 +67,19 @@
           color: #000000;
         }
       }
+
+      .add-item-btn {
+        margin-top: 10px;
+      }
+
     }
   }
   @include large {
-    // .navbar {
-    //   .container {
-    //     display: flex;
-    //     align-items: center;
-    //     flex-direction: row;
-    //     justify-content: space-between;
-    //     height: unset;
+    .content {
+      .add-item-btn {
+        margin-top: 0;
+      }
+    }
 
-    //     .logo {
-    //       height: unset;
-    //       h1 { 
-    //         font-size: 25px; 
-    //       }
-    //     }
-
-
-    //   }
-    // }
   }
 }
