@@ -1,0 +1,28 @@
+.guidelines-layout {
+  @include small {
+    .container {
+      display: flex;
+      flex-direction: column;
+
+      .content-wrapper {
+        * {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+  @include large {
+    .container {
+      flex-direction: row;
+      gap: 25px;
+
+      .content-nav {
+        width: 250px;
+      }
+
+      .content-wrapper {
+        flex: 1;
+      }
+    }
+  }
+}
