@@ -12,9 +12,9 @@ Missing 35-49 words will cost the student the silver medal. **Missing 50 words o
 
 Those in Division “A” will be required to recite a poem of 24 lines minimum and those in Division “B” will be required to recite a poem of 32 lines minimum.
 
-See the [General Student Guidelines](/student-guidelines) for appropriate dress.
+See the [General Student Guidelines](/guidelines) for appropriate dress.
 
-See the [Platform Guidelines](/student-guidelines/platform) for further instruction.
+See the [Platform Guidelines](/guidelines/platform) for further instruction.
 
 No costumes are allowed.
 

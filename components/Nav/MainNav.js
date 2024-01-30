@@ -37,7 +37,7 @@ const MainNav = () => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/student-guidelines">
+              <NavLink href="/guidelines">
                 General Student Guidelines
               </NavLink>
             </NavItem>

@@ -30,7 +30,7 @@ All music must be memorized.
 
 The time limit for all performances will be 4 minutes.
 
-Please refer to the [General Student Guidelines](/student-guidelines) for dress code and for the rule in mixing “A” and “B” division students. Please refer to the [Platform Guidelines](/student-guidelines/platform) for further aid.
+Please refer to the [General Student Guidelines](/guidelines) for dress code and for the rule in mixing “A” and “B” division students. Please refer to the [Platform Guidelines](/guidelines/platform) for further aid.
 
 Be sure to have your name on all music. We will try our best to get your books back to you as soon as possible. Please be sure to keep track of all your books. We cannot be held responsible for any lost items.
 

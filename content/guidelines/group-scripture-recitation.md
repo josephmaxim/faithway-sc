@@ -14,7 +14,7 @@ Recitation may be presented in reader’s dramatic style.
 
 Missing 50 words or more will automatically result in 77 (participation mark).
 
-See the [General Student Guidelines](/student-guidelines) for appropriate dress.
+See the [General Student Guidelines](/guidelines) for appropriate dress.
 
 No costumes are allowed.
 

@@ -8,9 +8,9 @@ Each school is allowed to enter 3 participants, male or female, per age group.
 
 An Expressive Reading is a memorized interpretation by an individual of a selection of a dialogue between 2 or more characters, or a monologue, which is a reading in the first person, or a scripture passage (poems may not be included).
 
-Please refer to the [Platform Guidelines](/student-guidelines/platform) for further preparation for this entry.
+Please refer to the [Platform Guidelines](/guidelines/platform) for further preparation for this entry.
 
-See the [General Student Guidelines](/student-guidelines) for appropriate dress.
+See the [General Student Guidelines](/guidelines) for appropriate dress.
 
 The participant should play the part of an observer or narrator who is reporting the material written by an author directly to an audience. Create an atmosphere by tone of voice, inflections, pauses, and gestures.
 

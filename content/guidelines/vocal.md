@@ -60,9 +60,9 @@ No taped accompaniment will be allowed.
 
 Sound tracks and amplification equipment are not allowed.
 
-Please refer to the [General Student Guidelines](/student-guidelines) for dress code and for the rule on mixing “A” and “B” division students.
+Please refer to the [General Student Guidelines](/guidelines) for dress code and for the rule on mixing “A” and “B” division students.
 
-Please refer to the [Platform Guidelines](/student-guidelines/platform) for further instruction. These are there to help your participants.
+Please refer to the [Platform Guidelines](/guidelines/platform) for further instruction. These are there to help your participants.
 
 Music must be performed exactly as it appears on the score. If any chords, parts, etc. are changed, please rewrite the music so as to show any changes.
 

@@ -32,7 +32,7 @@ const GuidelinesNav = (props) => {
 
   const NavLink = ({children, href, active}) => <NavItem>
     <Link
-      href={'/student-guidelines' + href}
+      href={'/guidelines' + href}
       className={`nav-link${active ? ' active' : ''}`}
     >
       {children}
@@ -43,7 +43,7 @@ const GuidelinesNav = (props) => {
     {
       navItems.map((i,key) => <NavLink 
         key={key} 
-        active={router.asPath == `/student-guidelines${i.href}`} 
+        active={router.asPath == `/guidelines${i.href}`} 
         href={i.href}
       >
         {i.label}
