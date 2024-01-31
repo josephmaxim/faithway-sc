@@ -5,6 +5,7 @@
       flex-direction: column;
 
       .content-nav {
+        order: 2;
         margin-bottom: 15px;
         .nav-item {
           .nav-link {
@@ -37,6 +38,7 @@
       }
 
       .content-wrapper {
+        order: 2;
         & > h1 {
           font-size: 30px;
           padding-bottom: 20px;
