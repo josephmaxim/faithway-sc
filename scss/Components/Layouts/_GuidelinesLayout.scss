@@ -6,6 +6,14 @@
 
       .content-nav {
         margin-bottom: 15px;
+        .nav-item {
+          .nav-link {
+            color: #1c4280;
+          }
+          .active {
+            background: rgb(248, 248, 248);
+          }
+        }
       }
 
       .content-wrapper {
