@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from 'next/link';
+import MainLogo from "../Vectors/MainLogo";
 
 import {
   Collapse,
@@ -21,7 +22,7 @@ const MainNav = () => {
     <div className="container">
       <Navbar color="faded" light container={false}>
         <NavbarBrand>
-          Christian Student Convention
+          <MainLogo/>
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="toggler" />
         <Collapse isOpen={!collapsed} navbar>
