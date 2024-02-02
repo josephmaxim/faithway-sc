@@ -1,7 +1,8 @@
 import { useContext, useRef } from "react";
 import BilletingProvider, {BilletingContext} from "@/context/BilletingContext";
+import { notify } from '@/utils/notification';
 import MainLayout from "@/components/Layouts/MainLayout";
-import { Container, Row, Col, Table } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Divider from 'rsuite/Divider';
 import PlusIcon from '@rsuite/icons/Plus';
 import CloseIcon from '@rsuite/icons/Close';
@@ -10,26 +11,14 @@ import {
   IconButton,
   Button,
   ButtonToolbar,
-  RadioGroup,
-  Radio,
-  Checkbox,
-  CheckboxGroup,
   Input,
-  InputPicker,
   Schema,
-  Panel,
-  Modal,
-  TagGroup,
-  Tag,
-  Notification, 
-  useToaster,
   List
 } from 'rsuite';
 
 const BilletingPage = () => {
 
   const formRef = useRef();
-  const toaster = useToaster();
   const { billetState, billetDispatch } = useContext(BilletingContext)
   const { formValue, list, listForm } = billetState
 
@@ -118,25 +107,21 @@ const BilletingPage = () => {
 
   const handleFormSubmit = async () => {
 
-    if(!formRef.current.check()) return toaster.push(notify({
-      type:"error",
-      header: "Error",
+    if(!formRef.current.check()) return notify({
+      type:"danger",
       message: "Please fill out the required fields."
-    }), {placement: 'bottomEnd'});
+    });
 
-    if(list.sponsors.length == 0) return toaster.push(notify({
-      type:"error",
-      header: "Error",
+    if(list.sponsors.length == 0) return notify({
+      type:"danger",
       message: "Please enter a minimum of 1 sponsor"
-    }), {placement: 'bottomEnd'});
+    });
 
     // TODO: handle form submit
-    toaster.push(notify({
+    notify({
       type:"success",
-      header: "Form Submitted",
       message: "We sent a copy of your billeting form to your email."
-    }), {placement: 'bottomEnd'});
-
+    })
     billetDispatch({type: "RESET_FORM"})
   }
 
@@ -220,9 +205,3 @@ export default function BilletingPageHOC(){
     <BilletingPage/>
   </BilletingProvider>
 };
-
-const notify = ({ header, message, type }) => (
-  <Notification type={type} header={header}>
-    { message }
-  </Notification>
-);
