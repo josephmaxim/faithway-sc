@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -w app.js -w utils/ app.js",
+    "dev": "nodemon -w app.js -w utils/ -w server/ app.js",
     "build": "next build",
     "start": "NODE_ENV=production node app.js",
     "lint": "next lint",

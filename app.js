@@ -7,6 +7,7 @@ const env = process.env
 const app = next({ dev: isDev })
 const handle = app.getRequestHandler()
 
+const routes = require('./server/routes')
 
 app.prepare()
 .then(async() => {
@@ -21,6 +22,7 @@ app.prepare()
     return next();
   });
 
+  server.use(routes)
 
   server.get('*', (req, res) => {
     return handle(req, res)
