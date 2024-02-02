@@ -308,7 +308,6 @@ const HomePage = () => {
             </Modal.Footer>
           </>
       }
-      
     </Modal>
   </MainLayout>
 }
