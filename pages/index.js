@@ -138,11 +138,10 @@ const HomePage = () => {
   }
 
   const handleFormReset = () => {
-    toaster.push(notify({
+    notify({
       type:"info",
-      header: "Form has been reset.",
-      // message: "Form has been reset."
-    }), {placement: 'bottomEnd'});
+      message: "Form has been reset."
+    });
 
     regDispatch({type: "RESET_FORM"})
   }
