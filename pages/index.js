@@ -25,6 +25,7 @@ import MainLayout from '../components/Layouts/MainLayout';
 import { grades } from '../utils/InputData'; 
 import events from '@/utils/events';
 import { submitRegistration } from '@/controller/student';
+import { findEventValue } from '@/utils/commons';
 
 const HomePage = () => {
 
@@ -45,11 +46,6 @@ const HomePage = () => {
   }
 
   const displayTags = () => {
-    // const eventList = Object.keys(formValue).reduce((list, i) =>{
-    //   const objData = formValue[i];
-    //   if(Array.isArray(objData)) return list.concat(objData);
-    //   return list;
-    // },[])
 
     return selectedEvents.map((i, key) => {
       const event = findEventValue(i)
@@ -95,15 +91,6 @@ const HomePage = () => {
         <br/>
       </Fragment>
     })
-  }
-
-  function findEventValue(key) {
-    for (const category in events) {
-      if (Object.prototype.hasOwnProperty.call(events[category], key)) {
-        return events[category][key];
-      }
-    }
-    return 'Key not found';
   }
 
   function getCategory(key) {
@@ -164,10 +151,11 @@ const HomePage = () => {
     });
 
     // TODO: Handle backend call...
-    const res = await submitRegistration(formValue)
+    const res = await submitRegistration({...formValue, selectedEvents})
+
+    console.log(res)
 
     regDispatch({type: "SUBMIT_SUCCESS"})
-    console.log(formValue, res);
   }
 
   return <MainLayout
