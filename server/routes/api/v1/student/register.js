@@ -2,7 +2,8 @@ const route = require('express').Router()
 
 // returns students data
 route.post('/', (req, res, next) => {
-  return res.json('students')
+  console.log(req.body)
+  return res.json(req.body)
 });
 
 module.exports = route;

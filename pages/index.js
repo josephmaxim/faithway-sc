@@ -1,8 +1,10 @@
 import { useContext, Fragment, useRef } from 'react';
 import Link from 'next/link';
+import { notify } from '@/utils/notification';
 import RegistrationProvider, { RegistrationContext } from '../context/RegistrationContext';
 import Divider from 'rsuite/Divider';
 import { Container, Row, Col, Table } from 'reactstrap';
+
 import {
   Form,
   Button,
@@ -17,17 +19,15 @@ import {
   Modal,
   TagGroup,
   Tag,
-  Notification, 
-  useToaster
 } from 'rsuite';
 import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import MainLayout from '../components/Layouts/MainLayout';
 import { grades } from '../utils/InputData'; 
 import events from '@/utils/events';
+import { submitRegistration } from '@/controller/student';
 
 const HomePage = () => {
 
-  const toaster = useToaster();
   const formRef = useRef();
   const emailRef = useRef();
   const { regState, regDispatch } = useContext(RegistrationContext)
@@ -116,25 +116,23 @@ const HomePage = () => {
   }
 
   const handleReviewRegistration = () => {
-    if (!formRef.current.check()) return toaster.push(notify({
-      type:"error",
-      header: "Error",
-      message: "Please fill out the required fields."
-    }), {placement: 'bottomEnd'});
+
+    if (!formRef.current.check()) return notify({
+      type:"danger",
+      message: "Please fill out the required fields.",
+    });
 
     // Min event Error
-    if(selectedEvents.length < 3) return  toaster.push(notify({
+    if(selectedEvents.length < 3) return  notify({
       type:"warning",
-      header: "Warning",
       message: "A participant must enter a minimum of 3 events."
-    }), {placement: 'bottomEnd'});
+    });
 
     // Max event Err.
-    if(countedSelectedEvents.length > 9) return  toaster.push(notify({
-      type:"error",
-      header: "Error",
+    if(countedSelectedEvents.length > 9) return  notify({
+      type:"danger",
       message: "A student may enter a maximum of 9 participation events EXCLUDING those events finished before Convention (needlework, sketching, etc.)."
-    }), {placement: 'bottomEnd'});
+    });
 
     regDispatch({type: "TOGGLE_PREVIEW"})
   }
@@ -161,16 +159,16 @@ const HomePage = () => {
   const model = Schema.Model(schemaModel);
 
   const handleSubmitRegistration = async () => {
-    if (!emailRef.current.check()) return toaster.push(notify({
-      type:"error",
-      header: "Error",
+    if (!emailRef.current.check()) return notify({
+      type:"danger",
       message: "Please enter a valid email."
-    }), {placement: 'bottomEnd'});
+    });
 
     // TODO: Handle backend call...
+    const res = await submitRegistration(formValue)
 
     regDispatch({type: "SUBMIT_SUCCESS"})
-    console.log(formValue);
+    console.log(formValue, res);
   }
 
   return <MainLayout
@@ -321,9 +319,3 @@ export default function HomePageHOC(){
     <HomePage/>
   </RegistrationProvider>
 }
-
-const notify = ({ header, message, type }) => (
-  <Notification type={type} header={header}>
-    { message }
-  </Notification>
-);

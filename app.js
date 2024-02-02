@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const next = require('next')
+const cookieParser = require('cookie-parser')
 
 const { isDev, urlHost } = require('#utils/commons.js')
 const env = process.env
@@ -12,6 +13,10 @@ const routes = require('./server/routes')
 app.prepare()
 .then(async() => {
   const server = express()
+
+  server.use(express.json());
+  server.use(express.urlencoded({ extended: false }));
+  server.use(cookieParser())
 
   server.use((req, res, next) => {
     res.set('credentials', 'include');
