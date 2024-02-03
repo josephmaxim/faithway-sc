@@ -2,7 +2,7 @@ const events = require("#utils/events.js");
 const { findEventValue } = require("#utils/commons.js")
 
 const studentRegistrationEmailTemplate = (data) => {
-  const { fullName, gender, grade, church, selectedEvents, mathGrade } = data;
+  const { _id, fullName, gender, grade, church, selectedEvents, mathGrade } = data;
 
   const eventList = selectedEvents.map((i) => {
     const event = findEventValue(i)
@@ -161,7 +161,7 @@ const studentRegistrationEmailTemplate = (data) => {
       <br/>
       <div class="footer">
         <p>To address any questions or modifications to your registration please reply to this email or contact <a href="mailto:dlindhorst@faithway.org">dlindhorst@faithway.org</a></p>
-        <p class="student-id">Student ID: <a href="https://sc.faithway.org/dashboard/students/#">iuakjefb7382i3h8f731hu33917fhu139fgh1</a></p>
+        <p class="student-id">Student ID: <a href="https://sc.faithway.org/dashboard/students/${_id}">iuakjefb7382i3h8f731hu33917fhu139fgh1</a></p>
         <a class="footer-logo" href="https://www.faithway.org" target="_blank">
           <img src="https://sc.faithway.org/img/fw-logo.png" alt="FaithWay Baptist Church">
         </a>
