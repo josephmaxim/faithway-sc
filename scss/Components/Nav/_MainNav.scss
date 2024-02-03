@@ -27,5 +27,19 @@
     .navbar-brand {
       font-size: 22px;
     }
+    .navbar-collapse {
+      .navbar-nav {
+        .nav-item {
+          margin-right: 20px;
+
+          &:last-child {
+            margin-right: 0;
+            .nav-link {
+              padding-right: 0;
+            }
+          }
+        }
+      }
+    }
   }
 }
