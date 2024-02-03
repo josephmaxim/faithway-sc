@@ -7,12 +7,15 @@ const { isDev, urlHost } = require('#utils/commons.js')
 const env = process.env
 const app = next({ dev: isDev })
 const handle = app.getRequestHandler()
+const connectToDatabase = require('./db/index')
 
 const routes = require('./server/routes')
 
 app.prepare()
 .then(async() => {
   const server = express()
+
+  await connectToDatabase();
 
   server.use(express.json());
   server.use(express.urlencoded({ extended: false }));
