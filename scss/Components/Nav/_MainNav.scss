@@ -2,11 +2,9 @@
   @include small {
     background: #fcfcfc;
 
-    .navbar-brand {
-      color: #222222 !important;
-      font-weight: 800;
-      font-size: 15px;
-      text-transform: uppercase;
+    .navbar-brand svg {
+      width: 170px;
+      height: auto;
     }
 
     .navbar-toggler {
