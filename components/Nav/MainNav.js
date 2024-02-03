@@ -4,7 +4,7 @@ import MainLogo from "../Vectors/MainLogo";
 
 import {
   Collapse,
-  Navbar,
+  Navbar, 
   NavbarToggler,
   NavbarBrand,
   Nav,
