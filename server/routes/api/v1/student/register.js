@@ -28,16 +28,16 @@ route.post('/', async (req, res, next) => {
 
   const savedStudent = await newStudent.save()
 
-  // send email
-  // await sendEmail({
-  //   from: "FaithWay Student Convention <faithway@plasmacreative.com>",
-  //   to: email,
-  //   cc: 'dlindhorst@faithway.org',
-  //   bcc: ['faithway@plasmacreative.com', 'familyaquino@rogers.com'],
-  //   subject: `Registration (${fullName})`,
-  //   html: studentRegistrationEmailTemplate({...req.body, _id: savedStudent._id}),
-  //   'h:Reply-To': 'dlindhorst@faithway.org',
-  // })
+  //send email
+  await sendEmail({
+    from: "FaithWay Student Convention <faithway@plasmacreative.com>",
+    to: email,
+    cc: 'dlindhorst@faithway.org',
+    bcc: ['faithway@plasmacreative.com', 'familyaquino@rogers.com'],
+    subject: `Registration (${fullName})`,
+    html: studentRegistrationEmailTemplate({...req.body, _id: savedStudent._id}),
+    'h:Reply-To': 'dlindhorst@faithway.org',
+  })
 
   return res.json(req.body)
 });
