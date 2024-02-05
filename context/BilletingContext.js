@@ -5,7 +5,7 @@ export const BilletingContext = createContext();
 const initialState = {
   formValue:{
     church: "",
-    contactPerson: "",
+    primaryContact: "",
     phone: "",
     email: ""
   },
