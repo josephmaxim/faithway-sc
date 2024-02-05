@@ -14,7 +14,8 @@ const studentSchema = new Schema({
       totalPoints: {type: Number, default: 0} 
     }
   ],
-  mathGrade: {type: Number, default: 0}
+  mathGrade: {type: Number, default: 0},
+  date: { type: Date, default: Date.now }
 })
 
 module.exports = mongoose.model('student', studentSchema)
