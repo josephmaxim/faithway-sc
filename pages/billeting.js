@@ -15,6 +15,7 @@ import {
   Schema,
   List
 } from 'rsuite';
+import { submitBilleting } from '@/controller/billeting';
 
 const BilletingPage = () => {
 
@@ -29,7 +30,7 @@ const BilletingPage = () => {
   const displayItemList = (param) => {
 
     const listItems = list[param]?.map((i, key) => {
-      return <List.Item size="xs" key={key}>
+      return <List.Item className={``} size="sm" key={key}>
         <Row>
           <Col xs="11" lg="11">
             <span style={{fontSize: "14px"}}>{i}</span>
@@ -99,8 +100,7 @@ const BilletingPage = () => {
 
   const model = Schema.Model({
     church: Schema.Types.StringType().isRequired('Please enter your attending church'),
-    contactPerson: Schema.Types.StringType().isRequired('Please enter a contact person'),
-    phone: Schema.Types.NumberType().isRequired('Please enter a phone number'),
+    primaryContact: Schema.Types.StringType().isRequired('Please enter a contact person'),
     phone: Schema.Types.NumberType().isRequired('Please enter a phone number'),
     email: Schema.Types.StringType().isRequired().isEmail('Please enter a valid email address.')
   });
@@ -118,11 +118,11 @@ const BilletingPage = () => {
     });
 
     // TODO: handle form submit
-    notify({
-      type:"success",
-      message: "We sent a copy of your billeting form to your email."
-    })
-    billetDispatch({type: "RESET_FORM"})
+   
+    const res = await submitBilleting({...formValue, list});
+    console.log("Hello", res)
+
+    // billetDispatch({type: "RESET_FORM"})
   }
 
   return <MainLayout
@@ -148,9 +148,9 @@ const BilletingPage = () => {
 
         <Row>
           <Col sm="12" lg="8">
-            <Form.Group controlId="contactPerson">
+            <Form.Group controlId="primaryContact">
               <Form.ControlLabel>Primary Contact Person</Form.ControlLabel>
-              <Form.Control name="contactPerson" />
+              <Form.Control name="primaryContact" />
             </Form.Group>
           </Col>
           <Col sm="12" lg="4">
@@ -164,6 +164,7 @@ const BilletingPage = () => {
     <div className="container">
       <p><strong>STUDENTS SHOULD HAVE A SPONSOR BILLET WITH THEM. Please do not leave students on their own at billets or in the dorm.</strong><br/>Please list only those students and sponsors who will need billeting.<br/><u>ALL STUDENTS MUST BRING THEIR OWN SLEEPING BAG & PILLOW. SPONSORS WILL BE OFFERED A BED.</u></p>
     </div>
+    <br/>
     <div className="container">
       <h6>Female Students ({list.female.length})</h6>
       { displayItemList("female") }
@@ -183,6 +184,8 @@ const BilletingPage = () => {
         <Form.HelpText>We will send you a confirmation email.</Form.HelpText>
       </Form.Group>
 
+      <br/>
+      <br/>
       <ButtonToolbar>
         <Button appearance="primary" onClick={handleFormSubmit}>Submit Form</Button>
         <Button 
