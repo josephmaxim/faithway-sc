@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import MainLogo from "../Vectors/MainLogo";
 
 import {
@@ -14,10 +15,12 @@ import {
 
 const MainNav = () => {
 
+  const router = useRouter();
+
   const [collapsed, setCollapsed] = useState(false);
   const toggleNavbar = () => setCollapsed(!collapsed);
 
-  const NavLink = (props) => <Link {...props} className="nav-link">{props.children}</Link>
+  const NavLink = (props) => <Link {...props} className={`nav-link${router.asPath == props.href ? ' active' : ""}`}>{props.children}</Link>
 
   return <div className="main-nav">
       <Navbar
@@ -32,7 +35,6 @@ const MainNav = () => {
           <Link href="/" className="navbar-brand"><MainLogo/></Link>
           <NavbarToggler onClick={toggleNavbar} className="toggler" />
           <Collapse isOpen={collapsed} navbar>
-              <hr/>
               <Nav navbar className="ms-auto">
                 <NavItem>
                   <NavLink href="/">
