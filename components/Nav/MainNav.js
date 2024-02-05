@@ -56,36 +56,6 @@ const MainNav = () => {
         </Container>
       </Navbar>
     </div>
-
-  return <div className="main-nav">
-    <div className="container">
-      <Navbar color="faded" light container={false}>
-        <NavbarBrand>
-          <MainLogo/>
-        </NavbarBrand>
-        <NavbarToggler onClick={toggleNavbar} className="toggler" />
-        <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
-            <NavItem>
-              <NavLink href="/">
-                Student Registration
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/billeting">
-                Billeting Form
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/guidelines">
-                General Student Guidelines
-              </NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar>
-    </div>
-  </div>
 }
 
 export default MainNav;
