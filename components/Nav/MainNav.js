@@ -43,7 +43,7 @@ const MainNav = () => {
                 </NavItem>
                 <NavItem>
                   <NavLink href="/billeting">
-                    Billeting Form
+                    Billeting
                   </NavLink>
                 </NavItem>
                 <NavItem>
