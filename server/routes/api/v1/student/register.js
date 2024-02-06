@@ -2,6 +2,7 @@ const route = require('express').Router()
 const sendEmail = require('#server/lib/sendEmail.js')
 const { studentRegistrationEmailTemplate }= require('#server/lib/emailTemplates.js');
 const Student = require('#db/models/students.js');
+const { isDev } = require('#utils/commons.js');
 
 // returns students data
 route.post('/', async (req, res, next) => {
@@ -29,15 +30,15 @@ route.post('/', async (req, res, next) => {
   const savedStudent = await newStudent.save()
 
   //send email
-  // await sendEmail({
-  //   from: "FaithWay Student Convention <faithway@plasmacreative.com>",
-  //   to: email,
-  //   cc: 'dlindhorst@faithway.org',
-  //   bcc: ['faithway@plasmacreative.com', 'familyaquino@rogers.com'],
-  //   subject: `Registration (${fullName})`,
-  //   html: studentRegistrationEmailTemplate({...req.body, _id: savedStudent._id}),
-  //   'h:Reply-To': 'dlindhorst@faithway.org',
-  // })
+  await sendEmail({
+    from: "FaithWay Student Convention <faithway@plasmacreative.com>",
+    to: email,
+    cc: isDev ? "" : 'dlindhorst@faithway.org',
+    bcc: isDev ? "" : ['faithway@plasmacreative.com', 'familyaquino@rogers.com'],
+    subject: `Registration (${fullName})`,
+    html: studentRegistrationEmailTemplate({...req.body, _id: savedStudent._id}),
+    'h:Reply-To': 'dlindhorst@faithway.org',
+  })
 
   return res.json(req.body)
 });
