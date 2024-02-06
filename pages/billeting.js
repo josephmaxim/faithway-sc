@@ -71,7 +71,7 @@ const BilletingPage = () => {
       <Row style={{marginTop: "15px"}}>
         <Col sm="12" lg="10">
           <Input
-            placeholder="Enter a name..."
+            placeholder='Enter a name and click "+ Add"'
             value={listForm[param]}
             onChange={(val) => billetDispatch({
               type: "SET_ITEM_FORM",
