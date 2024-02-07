@@ -10,10 +10,10 @@ const MainFooter = () => {
         <Col lg="4"  className="order-2 order-lg-1">
           <div className="credits">
             <div className="logo">
-              <Link href="/#">
+              <Link target="_blank" href="https://www.faithway.org">
                 <FaithWayLogo/>
               </Link>
-              <Link href="/#">
+              <Link target="_blank" href="/">
                 <MainLightLogo/>
               </Link>
             </div>
