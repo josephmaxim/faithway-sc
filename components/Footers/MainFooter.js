@@ -23,8 +23,8 @@ const MainFooter = () => {
           </div>
         </Col>
         <Col className="footer-links order-1 order-lg-2">
-          <Row>
-            <Col sm="1" lg="4">
+          <Row className="no-gutters">
+            <Col md="4">
               <div className="link-headings">Get Started</div>
               <ul>
                 <li><Link href="/">Student Registration</Link></li>
@@ -32,14 +32,14 @@ const MainFooter = () => {
                 <li><Link href="mailto:dlindhorst@faithway.org">Contact</Link></li>
               </ul>
             </Col>
-            <Col sm="1" lg="4">
+            <Col md="4">
               <div className="link-headings">Resources</div>
               <ul>
                 <li><Link href="/privacy">Privacy Policy</Link></li>
                 <li><Link href="/guidelines">Student Guidelines</Link></li>
               </ul>
             </Col>
-            <Col sm="1" lg="4">
+            <Col md="4">
               <div className="link-headings">Other Links</div>
               <ul>
                 <li><Link href="/login">Login</Link></li>
