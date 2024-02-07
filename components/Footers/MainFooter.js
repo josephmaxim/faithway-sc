@@ -18,7 +18,7 @@ const MainFooter = () => {
               </Link>
             </div>
             <div className="text">
-              © 2024 Christian Student Convention.<br/> All rights reserved. Managed by <a href="https://plasmacreative.com">PlasmaCreative</a>
+              © 2024 Christian Student Convention.<br/> All rights reserved. Managed by <a target="_blank" href="https://plasmacreative.com">PlasmaCreative</a>
             </div>
           </div>
         </Col>
