@@ -20,7 +20,7 @@ const MainNav = () => {
   const [collapsed, setCollapsed] = useState(false);
   const toggleNavbar = () => setCollapsed(!collapsed);
 
-  const NavLink = (props) => <Link {...props} className={`nav-link${router.asPath == props.href ? ' active' : ""}`}>{props.children}</Link>
+  const NavLink = (props) => <Link {...props} className={`nav-link${router.pathname == props.href ? ' active' : ""}`}>{props.children}</Link>
 
   return <div className="main-nav">
       <Navbar
@@ -42,13 +42,13 @@ const MainNav = () => {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/billeting">
-                    Billeting
+                  <NavLink href="/guidelines">
+                    Student Guidelines
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/guidelines">
-                    Student Guidelines
+                  <NavLink href="/billeting">
+                    Billeting
                   </NavLink>
                 </NavItem>
               </Nav>
