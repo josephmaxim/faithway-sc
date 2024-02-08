@@ -1,0 +1,8 @@
+.auth-layout {
+  @include small {
+    // min-height: 400px;
+  }
+  @include large {
+    // min-height: calc(100vh - 380px);
+  }
+}

@@ -1,0 +1,127 @@
+.admin-sidebar {
+  @include small() {
+    width: 300px;
+    background: #FFF;
+    transform: translate( -300px, 0px);
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    border-right: 1px solid rgb(239, 239, 239);
+
+    .sb-head {
+      display: none;
+    }
+    .main-nav {
+      height: 100%;
+      overflow-y: auto;
+      background: #FFFFFF;
+
+      .main-nav-wrapper {
+        padding: 10px 0px;
+        // background: #FFF;
+
+        .end-page {
+          font-weight: 500;
+        }
+
+        & > ul:last-child {
+          padding-bottom: 100px;
+        }
+
+        ul {
+          padding: 0;
+          margin: 0;
+          li {
+            list-style: none;
+
+            a, button {
+              height: 40px;
+              display: flex;
+              text-decoration: none;
+              // text-transform: capitalize;
+              font-size: 15px;
+              font-weight: 500;
+              padding: 0px 15px;
+              justify-content: space-between;
+              align-items: center;
+              color: rgb(53, 53, 53);
+              border: none;
+              background: #FFF;
+              box-sizing: border-box;
+              width: 100%;
+
+              &:hover {
+                background: rgb(245, 245, 245);
+              }
+              &:not([href]){
+                cursor: s-resize;
+              }
+            }
+
+            & > ul {
+              max-height: 0;
+              overflow: hidden;
+              -webkit-transition: max-height .5s ease-in-out;
+              -moz-transition: max-height .5s ease-in-out;
+              -ms-transition: max-height .5s ease-in-out;
+              -o-transition: max-height .5s ease-in-out;
+              transition: max-height .5s ease-in-out;
+
+              li {
+                a, button {
+                  padding-left: 12px + 12px;
+                }
+
+                & > ul {
+                  li {
+                    a, button {
+                      padding-left: 12px + 12px + 12px;
+                    }
+                  }
+                }
+              }
+
+              &.collapsed {
+                max-height: 1000px;
+              }
+              
+            }
+
+            .active {
+              background: #0058bc19;
+            }
+          }
+
+        }
+
+
+      }
+    }
+  }
+
+  @include large() {
+    width: 250px;
+    transform: unset;
+    top: 0;
+    bottom: 0;
+    .sb-head {
+      height: 60px;
+      display: flex;
+      background: #fff;
+      // border-right: 1px solid rgb(239, 239, 239);
+      padding: 0px 15px;
+      z-index: 1;
+      .logo {
+        display: flex;
+        svg {
+          width: 150px;
+          height: auto;
+          margin-right: 7px;
+        }
+      }
+    }
+    .main-nav {
+      height: calc(100% - 60px);
+    }
+  }
+}

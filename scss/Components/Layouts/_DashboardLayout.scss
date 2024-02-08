@@ -1,0 +1,43 @@
+.dashboard-layout {
+  @include small(){
+    .main-content {
+      background: #FFF;
+      margin-top: 51px;
+      overflow: hidden;
+
+      h2 {
+        font-size: 16px;
+      }
+
+      .content-block, .sidebar {
+        transition: all 0.5s ease-in-out;
+      }
+    }
+    .show-sidebar {
+      .admin-sidebar {
+        transform: translate( 0px, 0px);
+      }
+      .content-block {
+        transform: translate( 300px, 0px);
+      }
+    }
+  }
+
+  @include large(){
+    .main-content {
+      margin-top: 60px;
+
+      .content-block {
+        margin-left: 250px;
+      }
+    }
+    .show-sidebar {
+      .admin-sidebar {
+        transform: translate( 0px, 0px);
+      }
+      .content-block {
+        transform: translate( 0px, 0px);
+      }
+    }
+  }
+}
