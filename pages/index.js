@@ -19,7 +19,11 @@ import {
   Modal,
   TagGroup,
   Tag,
+  Whisper,
+  InputGroup,
+  Tooltip
 } from 'rsuite';
+import InfoIcon from '@rsuite/icons/legacy/Question2';
 import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import MainLayout from '../components/Layouts/MainLayout';
 import { grades } from '../utils/InputData'; 
@@ -145,10 +149,7 @@ const HomePage = () => {
   const model = Schema.Model(schemaModel);
 
   const handleSubmitRegistration = async () => {
-    if (!emailRef.current.check()) return notify({
-      type:"danger",
-      message: "Please enter a valid email."
-    });
+    if (!emailRef.current.check()) return;
 
     // TODO: Handle backend call...
     const res = await submitRegistration({...formValue, selectedEvents})
@@ -273,7 +274,10 @@ const HomePage = () => {
               </Panel>
               <br/>
               <Form 
-                model={Schema.Model({email: Schema.Types.StringType().isRequired().isEmail('Please enter a valid email address.')})}
+                model={Schema.Model({
+                  email: Schema.Types.StringType().isRequired().isEmail('Please enter a valid email address.'),
+                  password: Schema.Types.StringType().isRequired('Please enter the password.')
+                })}
                 ref={emailRef}
                 formValue={formValue}
                 onChange={formValue => handleFormChange(formValue)}
@@ -281,11 +285,24 @@ const HomePage = () => {
               >
                 <Form.Group controlId="email">
                   <Form.ControlLabel>Email</Form.ControlLabel>
-                  <Form.Control name="email" placeholder="youremail@site.com"/>
-                  <Form.HelpText>We will send you a registration confirmation and a copy of your registration information.</Form.HelpText>
+                  <Form.Control name="email" placeholder="youremail@site.com" />
+                  <Form.HelpText>We will send you a registration confirmation and a copy of your registration.</Form.HelpText>
+                </Form.Group>
+                <Form.Group controlId="password">
+                  <Form.ControlLabel>Password</Form.ControlLabel>
+            
+                  <InputGroup inside>
+                    <Form.Control name="password" type="password"/>
+                    <InputGroup.Addon>
+                      <Whisper placement="topEnd" speaker={<Tooltip>Registration form is password protected. Please contact Debra Lindhorst for the password.</Tooltip>}>
+                        <InfoIcon />
+                      </Whisper>
+                    </InputGroup.Addon>
+                  </InputGroup>
                 </Form.Group>
               </Form>
             </Modal.Body>
+            <br/>
             <Modal.Footer>
               <Button onClick={() => regDispatch({type: "TOGGLE_PREVIEW"})} appearance="subtle">
                 Go Back
