@@ -49,7 +49,19 @@ const HomePage = () => {
     return !excludedEvents.includes(ev)
   }
 
-  const handleFormChange = (value) => {
+  const handleFormChange = (value, e) => {
+
+    if(e.target.name == 'gender') {
+      value = {
+        ...value,
+        academics: [],
+        arts:[],
+        athletics: [],
+        speech: [],
+        vocal:[],
+        instrumental: [],
+      }
+    }
     regDispatch({type: "SET_FORM", payload: {value: value}})
   }
 
@@ -60,6 +72,9 @@ const HomePage = () => {
       return <Tag key={key} size='lg'>{event} {event == "Math" ? `(Grade ${formValue.mathGrade})`: ""}</Tag>
     });
   }
+
+  const maleOnlyEvent = ['preaching_a', 'preaching_b', 'floorHockey_a', 'floorHockey_b', 'boysBasketball_a', 'boysBasketball_b'];
+  const femaleOnlyEvents = ['girlsBasketball_a', 'girlsBasketball_b', 'needleThread_a', 'needleThread_b']
 
   const displayFormOptions = () => {
     const form = Object.keys(events).reduce((forms, i, index) => {
@@ -73,8 +88,16 @@ const HomePage = () => {
       const formCol = Object.keys(row).map((col, key) => {
 
         const checkboxItem = Object.keys(row[col]).map((box, key) => {
+
+          let disabled = false;
+          
+          disabled = formValue.gender == 'male' ? femaleOnlyEvents.includes(box) : disabled;
+          disabled = formValue.gender == 'female' ? maleOnlyEvent.includes(box) : disabled;
+
+          if(bypassValidation) disabled = false;
+
           return <Fragment key={key}>
-            <Checkbox key={key} value={box}>{row[col][box]}</Checkbox>
+            <Checkbox key={key} value={box} disabled={disabled}>{row[col][box]}</Checkbox>
             {
               box == "math" && formValue.academics.includes('math') ?
                 <Form.Control name="mathGrade" placeholder="Math Grade" accepter={InputPicker} data={grades}/>
@@ -175,7 +198,7 @@ const HomePage = () => {
     <Form
       ref={formRef}
       formValue={formValue}
-      onChange={formValue => handleFormChange(formValue)}
+      onChange={(value, e) => handleFormChange(value, e)}
       model={model}
       fluid
     >
