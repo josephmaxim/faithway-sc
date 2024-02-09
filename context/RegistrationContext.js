@@ -15,7 +15,8 @@ const initialState = {
     vocal:[],
     instrumental: [],
     mathGrade: '',
-    email: ""
+    email: "",
+    password: "",
   },
   togglePreview: false,
   isSubmitted: false

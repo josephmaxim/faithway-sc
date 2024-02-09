@@ -15,6 +15,6 @@ export const submitRegistration = async (form) => {
       message: error.response.data.message,
       type: "danger"
     })
-    return error.response.status;
+    return;
   }
 }

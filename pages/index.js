@@ -23,7 +23,7 @@ import {
   InputGroup,
   Tooltip
 } from 'rsuite';
-import InfoIcon from '@rsuite/icons/legacy/Question2';
+import Question2 from '@rsuite/icons/legacy/Question2';
 import CheckOutlineIcon from '@rsuite/icons/CheckOutline';
 import MainLayout from '../components/Layouts/MainLayout';
 import { grades } from '../utils/InputData'; 
@@ -154,9 +154,9 @@ const HomePage = () => {
     // TODO: Handle backend call...
     const res = await submitRegistration({...formValue, selectedEvents})
 
-    console.log(res)
-
-    regDispatch({type: "SUBMIT_SUCCESS"})
+    if(!res) return; 
+    
+    regDispatch({type: "SUBMIT_SUCCESS"});
   }
 
   return <MainLayout
@@ -223,7 +223,7 @@ const HomePage = () => {
       </Container>
       
     </Form>
-    <Modal size="lg" backdrop="static" keyboard={false} open={togglePreview} onClose={() => regDispatch({type: "TOGGLE_PREVIEW"})}>
+    <Modal size="lg" backdrop="static" keyboard={false} open={togglePreview} onClose={() => isSubmitted ? regDispatch({type: "RESET_FORM"}) : regDispatch({type: "TOGGLE_PREVIEW"})}>
       <Modal.Header>
         <Modal.Title><strong>Review Registration</strong></Modal.Title>
       </Modal.Header>
@@ -295,7 +295,7 @@ const HomePage = () => {
                     <Form.Control name="password" type="password"/>
                     <InputGroup.Addon>
                       <Whisper placement="topEnd" speaker={<Tooltip>Registration form is password protected. Please contact Debra Lindhorst for the password.</Tooltip>}>
-                        <InfoIcon />
+                        <Question2 />
                       </Whisper>
                     </InputGroup.Addon>
                   </InputGroup>

@@ -6,10 +6,11 @@ const { isDev } = require('#utils/commons.js');
 
 // returns students data
 route.post('/', async (req, res, next) => {
-  const { fullName, gender, church, grade, email, selectedEvents, mathGrade } = req.body;
-  if(fullName == '' || gender == '' || church == '' || grade == '' || email == '') return res.status(400).json({
-    message: "One of the required fields are empty. Please try again."
-  })
+  const { fullName, gender, church, grade, email, selectedEvents, mathGrade, password } = req.body;
+
+  if(password == '' || password != process.env.FORM_PASS) return res.status(403).json({message: "Invalid password. Please try again."})
+
+  if(fullName == '' || gender == '' || church == '' || grade == '' || email == '') return res.status(400).json({ message: "One of the required fields are empty. Please try again."})
 
   const events = selectedEvents.map((i) => {return {
     value: i,
