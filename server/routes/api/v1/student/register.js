@@ -35,7 +35,7 @@ route.post('/', async (req, res, next) => {
     from: "FaithWay Student Convention <faithway@plasmacreative.com>",
     to: email,
     cc: isDev ? "" : 'dlindhorst@faithway.org',
-    bcc: isDev ? "" : ['faithway@plasmacreative.com', 'familyaquino@rogers.com'],
+    bcc: isDev ? "" : 'faithway@plasmacreative.com',
     subject: `Registration (${fullName})`,
     html: studentRegistrationEmailTemplate({...req.body, _id: savedStudent._id}),
     'h:Reply-To': 'dlindhorst@faithway.org',
