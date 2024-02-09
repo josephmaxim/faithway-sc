@@ -6,7 +6,9 @@ const { isDev } = require('#utils/commons.js');
 
 route.post('/', async (req, res) => {
 
-  const { church, primaryContact, phone, email, list } = req.body;
+  const { church, primaryContact, phone, email, list, password } = req.body;
+
+  if(password == '' || password != process.env.FORM_PASS) return res.status(403).json({message: "Invalid password. Please try again."})
 
   if(church == '' || primaryContact == '' || phone == '' || email == '') return res.status(401).json({
     message: "Please fill out the required fields."

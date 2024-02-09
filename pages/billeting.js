@@ -13,8 +13,12 @@ import {
   ButtonToolbar,
   Input,
   Schema,
-  List
+  List,
+  Whisper,
+  InputGroup,
+  Tooltip
 } from 'rsuite';
+import Question2 from '@rsuite/icons/legacy/Question2';
 import { submitBilleting } from '@/controller/billeting';
 
 const BilletingPage = () => {
@@ -65,7 +69,7 @@ const BilletingPage = () => {
     return <>
       {
         listItems?.length > 0 ? 
-          <List bordered>{listItems}</List> 
+          <List bordered className="entry-list-billeting">{listItems}</List> 
         : null
       }
       <Row style={{marginTop: "15px"}}>
@@ -102,15 +106,13 @@ const BilletingPage = () => {
     church: Schema.Types.StringType().isRequired('Please enter your attending church'),
     primaryContact: Schema.Types.StringType().isRequired('Please enter a contact person'),
     phone: Schema.Types.NumberType().isRequired('Please enter a phone number'),
-    email: Schema.Types.StringType().isRequired().isEmail('Please enter a valid email address.')
+    email: Schema.Types.StringType().isRequired().isEmail('Please enter a valid email address.'),
+    password: Schema.Types.StringType().isRequired('Please enter the password.')
   });
 
   const handleFormSubmit = async () => {
 
-    if(!formRef.current.check()) return notify({
-      type:"danger",
-      message: "Please fill out the required fields."
-    });
+    if(!formRef.current.check()) return;
 
     if(list.sponsors.length == 0) return notify({
       type:"danger",
@@ -120,9 +122,10 @@ const BilletingPage = () => {
     // TODO: handle form submit
    
     const res = await submitBilleting({...formValue, list});
-    console.log("Hello", res)
+    
+    if(!res) return; 
 
-    // billetDispatch({type: "RESET_FORM"})
+    billetDispatch({type: "RESET_FORM"})
   }
 
   return <MainLayout
@@ -178,11 +181,28 @@ const BilletingPage = () => {
       { displayItemList("sponsors") }
       <Divider/>
 
-      <Form.Group controlId="email">
-        <Form.ControlLabel>Email</Form.ControlLabel>
-        <Form.Control name="email" placeholder="youremail@site.com"/>
-        <Form.HelpText>We will send you a confirmation email.</Form.HelpText>
-      </Form.Group>
+      <Row>
+        <Col sm="12" lg="8">
+          <Form.Group controlId="email">
+            <Form.ControlLabel>Email</Form.ControlLabel>
+            <Form.Control name="email" placeholder="youremail@site.com"/>
+            <Form.HelpText>We will send you a confirmation email.</Form.HelpText>
+          </Form.Group>
+        </Col>
+        <Col sm="12" lg="4">
+          <Form.Group controlId="password">
+            <Form.ControlLabel>Password</Form.ControlLabel>
+            <InputGroup inside>
+              <Form.Control name="password" type="password"/>
+              <InputGroup.Addon>
+                <Whisper placement="topEnd" speaker={<Tooltip>Registration form is password protected. Please contact Debra Lindhorst for the password.</Tooltip>}>
+                  <Question2 />
+                </Whisper>
+              </InputGroup.Addon>
+            </InputGroup>
+          </Form.Group>
+        </Col>
+      </Row>
 
       <br/>
       <br/>

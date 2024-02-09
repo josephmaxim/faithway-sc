@@ -7,7 +7,8 @@ const initialState = {
     church: "",
     primaryContact: "",
     phone: "",
-    email: ""
+    email: "",
+    password: ""
   },
   list: {
     male: [],
