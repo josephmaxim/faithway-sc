@@ -1,4 +1,5 @@
 import { useContext, Fragment, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { notify } from '@/utils/notification';
 import RegistrationProvider, { RegistrationContext } from '../context/RegistrationContext';
@@ -32,6 +33,9 @@ import { submitRegistration } from '@/controller/student';
 import { findEventValue } from '@/utils/commons';
 
 const HomePage = () => {
+
+  const searchParams = useSearchParams()
+  const bypassValidation = searchParams.get('bypassValidation') == "true";
 
   const formRef = useRef();
   const emailRef = useRef();
@@ -113,17 +117,20 @@ const HomePage = () => {
       message: "Please fill out the required fields.",
     });
 
-    // Min event Error
-    if(selectedEvents.length < 3) return  notify({
-      type:"warning",
-      message: "A participant must enter a minimum of 3 events."
-    });
+    if(!bypassValidation){
+      // Min event Error
+      if(selectedEvents.length < 3) return  notify({
+        type:"warning",
+        message: "A participant must enter a minimum of 3 events."
+      });
 
-    // Max event Err.
-    if(countedSelectedEvents.length > 9) return  notify({
-      type:"danger",
-      message: "A student may enter a maximum of 9 participation events EXCLUDING those events finished before Convention (needlework, sketching, etc.)."
-    });
+      // Max event Err.
+      if(countedSelectedEvents.length > 9) return  notify({
+        type:"danger",
+        message: "A student may enter a maximum of 9 participation events EXCLUDING those events finished before Convention (needlework, sketching, etc.)."
+      });
+    }
+    
 
     regDispatch({type: "TOGGLE_PREVIEW"})
   }
