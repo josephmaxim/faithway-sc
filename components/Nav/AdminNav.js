@@ -26,7 +26,7 @@ const AdminNav = () => {
       <MainLogo/>
     </Link>
     <div className="nav-hybrid">
-      Logout
+      <Link href="/api/v1/auth/logout">Logout</Link>
     </div>
   </div>
 }
