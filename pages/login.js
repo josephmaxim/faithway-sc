@@ -17,7 +17,7 @@ const LoginPage = () => {
   useEffect(() => {
     async function init(){
       const res = await getUser()
-      if(res?.email) Router.push('/dashboard')
+      if(res?.email) Router.replace('/dashboard')
     }
     init();
   },[])
