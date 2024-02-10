@@ -2,8 +2,8 @@ const route = require('express').Router()
 const securedRoute = require('#server/middleware/securedRoute.js')
 
 // returns user data
-route.get('/', securedRoute, (req, res, next) => {
-  const userData = {...req.user._doc}
+route.get('/', (req, res, next) => {
+  const userData = {...req.user?._doc}
 
   delete userData.password
 

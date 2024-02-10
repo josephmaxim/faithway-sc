@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react';
-import Link from 'next/link';
+import { useState, useRef, useEffect } from 'react';
 import Router from "next/router"
 import { useSearchParams } from 'next/navigation'
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import { Form, Button, Panel, Schema, Stack, Divider } from 'rsuite';
 import { loginUser } from "@/controller/user";
+import { getUser } from '@/controller/user'
 
 const LoginPage = () => {
 
@@ -13,6 +13,14 @@ const LoginPage = () => {
   const formRef = useRef();
   const initialState = { email: "", password: "" }
   const [ credentials, setCredentials ] = useState(initialState)
+
+  useEffect(() => {
+    async function init(){
+      const res = await getUser()
+      if(res?.email) Router.push('/dashboard')
+    }
+    init();
+  },[])
 
   const submitForm = async () => {
     if (!formRef.current.check()) return;

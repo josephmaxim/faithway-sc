@@ -2,7 +2,6 @@ import { createContext, useReducer, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getUser } from '@/controller/user'
 import securedPages from '@/utils/securedPages'
-import Router from "next/router"
 
 export const UserContext = createContext()
 
@@ -33,16 +32,12 @@ export default function UserProvider({children}){
   const pathname = useRouter().pathname
   const [ userState, userDispatch ] = useReducer(reducer, initialState);
 
-  console.log("dwdw", pathname, userState.info)
-
   useEffect(()=>{
     async function initUserData(){
       const userData = await getUser();
       userDispatch({type: "LOAD_USER", payload: {value: userData}})
     }
-    if(securedPages.includes(pathname) || pathname == '/login') initUserData()
-    // redirect login to dashboard if user is logged in.
-    if(pathname == '/login' && userState.info?.email) Router.push('/dashboard')
+    if(securedPages.includes(pathname)) initUserData()
   }, [pathname])
 
   return(
