@@ -19,8 +19,8 @@ const DashboardLayout = (props) => {
   </main>
 }
 
-export default function DashboardLayoutHOC(){
+export default function DashboardLayoutHOC(props){
   return <AdminProvider>
-    <DashboardLayout/>
+    <DashboardLayout {...props}/>
   </AdminProvider>
 }

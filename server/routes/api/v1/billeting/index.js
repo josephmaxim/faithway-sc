@@ -3,6 +3,7 @@ const Billeting = require('#db/models/billetings.js');
 const sendEmail = require('#server/lib/sendEmail.js')
 const { billetingEmailTemplate }= require('#server/lib/emailTemplates.js');
 const { isDev } = require('#utils/commons.js');
+const securedRoute = require('#server/middleware/securedRoute.js');
 
 route.post('/', async (req, res) => {
 
@@ -49,6 +50,13 @@ route.post('/', async (req, res) => {
     console.log(error)
     return res.status(500).json({message: "There is an error on our end. please contact support."})
   }
+})
+
+route.get('/', securedRoute, async (req, res) => {
+  
+  const billetings = await Billeting.find();
+  
+  return res.status(200).json(billetings)
 })
 
 module.exports = route;

@@ -19,3 +19,13 @@ export const submitBilleting = async (form) => {
     return;
   }
 }
+
+export const getBilleting = async () => {
+  try {
+    const { data } = await axios.get(`${rootPath}/billeting`);
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
