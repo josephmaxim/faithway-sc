@@ -66,6 +66,7 @@ app.prepare()
     const redirectPath = urlHost + req.url;
 
     if(securedPages.includes(path) && !req.isAuthenticated()) return res.redirect(302, `/login?redirect=${encodeURIComponent(redirectPath)}`)
+
     if(path == '/login' && req.isAuthenticated()) return res.redirect(302, '/dashboard')
     return handle(req, res)
   })

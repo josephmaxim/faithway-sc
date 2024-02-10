@@ -51,6 +51,7 @@ const LoginPage = () => {
           ref={formRef}
           formValue={credentials}
           onChange={formValue => setCredentials(formValue)}
+          onSubmit={submitForm}
         >
           <Form.Group controlId="email">
             <Form.ControlLabel>Email</Form.ControlLabel>
@@ -62,7 +63,7 @@ const LoginPage = () => {
           </Form.Group>
           <Form.Group>
             <Stack spacing={6} divider={<Divider vertical />}>
-              <Button appearance="primary" onClick={submitForm}>Sign in</Button>
+              <Button appearance="primary" type="submit">Sign in</Button>
             </Stack>
           </Form.Group>
         </Form>

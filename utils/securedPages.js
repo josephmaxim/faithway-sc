@@ -1,1 +1,1 @@
-module.exports = ['/dashboard'];
+module.exports = ['/dashboard', '/dashboard/students', '/dashboard/billeting'];
