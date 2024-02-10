@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import { ReactNotifications } from 'react-notifications-component'
+import UserProvider from '@/context/UserContext'
 
 import '@/scss/root.scss';
 
 export default function App({ Component, pageProps }) {
-  return <>
+  return <UserProvider>
     <Head>
       <meta charSet="utf-8"/>
       <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
@@ -14,5 +15,5 @@ export default function App({ Component, pageProps }) {
     </Head>
     <ReactNotifications className="react-notify"/>
     <Component {...pageProps} />
-  </>
+  </UserProvider>
 }
