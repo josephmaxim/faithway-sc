@@ -33,6 +33,8 @@ export default function UserProvider({children}){
   const pathname = useRouter().pathname
   const [ userState, userDispatch ] = useReducer(reducer, initialState);
 
+  console.log("dwdw", pathname, userState.info)
+
   useEffect(()=>{
     async function initUserData(){
       const userData = await getUser();
