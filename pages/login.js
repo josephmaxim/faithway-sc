@@ -1,22 +1,30 @@
 import { useState, useRef } from 'react';
 import Link from 'next/link';
+import Router from "next/router"
+import { useSearchParams } from 'next/navigation'
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import { Form, Button, Panel, Schema, Stack, Divider } from 'rsuite';
+import { loginUser } from "@/controller/user";
 
 const LoginPage = () => {
 
+  const searchParams = useSearchParams()
+  const redirect = searchParams.get('redirect')
   const formRef = useRef();
-  const initialState = { username: "", password: "" }
+  const initialState = { email: "", password: "" }
   const [ credentials, setCredentials ] = useState(initialState)
 
   const submitForm = async () => {
     if (!formRef.current.check()) return;
 
     // TODO: user login
+    const res = await loginUser(credentials)
+
+    if(res == 200) Router.push(redirect ? decodeURI(redirect) : `/dashboard`)
   }
 
   let model = Schema.Model({
-    username: Schema.Types.StringType().isRequired('Enter your username'),
+    email: Schema.Types.StringType().isRequired('Enter your username'),
     password: Schema.Types.StringType().isRequired('Enter your password')
   })
 
@@ -39,9 +47,9 @@ const LoginPage = () => {
           formValue={credentials}
           onChange={formValue => setCredentials(formValue)}
         >
-          <Form.Group controlId="username">
-            <Form.ControlLabel>Username</Form.ControlLabel>
-            <Form.Control name="username" />
+          <Form.Group controlId="email">
+            <Form.ControlLabel>Email</Form.ControlLabel>
+            <Form.Control name="email" />
           </Form.Group>
           <Form.Group controlId="church">
             <Form.ControlLabel>password</Form.ControlLabel>
