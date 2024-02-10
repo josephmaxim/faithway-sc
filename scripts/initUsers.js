@@ -1,8 +1,9 @@
 require('dotenv').config();
-const mongoose = require('mongoose')
 const connectToDatabase = require('#db/index.js')
 const bcrypt = require('bcryptjs')
 const User = require('#db/models/users.js')
+
+console.log(process.env.DB_HOST)
 
 async function initUsers(){
 
