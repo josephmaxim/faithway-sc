@@ -38,7 +38,7 @@ export default function UserProvider({children}){
       const userData = await getUser();
       userDispatch({type: "LOAD_USER", payload: {value: userData}})
     }
-    if(securedPages.includes(pathname)) initUserData()
+    if(securedPages.includes(pathname) || pathname == '/login') initUserData()
     // redirect login to dashboard if user is logged in.
     if(pathname == '/login' && userState.info?.email) Router.push('/dashboard')
   }, [pathname])
