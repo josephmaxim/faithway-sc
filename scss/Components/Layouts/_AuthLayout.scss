@@ -1,8 +1,15 @@
 .auth-layout {
   @include small {
-    // min-height: 400px;
+    .container {
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   @include large {
-    // min-height: calc(100vh - 380px);
+    .container {
+      height: calc(100vh - 350px);
+    }
   }
 }

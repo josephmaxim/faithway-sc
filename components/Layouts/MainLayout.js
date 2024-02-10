@@ -7,9 +7,13 @@ const MainLayout = (props) => {
 
   return <main className="main-layout">
     <MainNav/>
-    <div className="container header">
-      <h1>{ props.header }</h1>
-    </div>
+    {
+      props.header ? 
+        <div className="container header">
+          <h1>{ props.header }</h1>
+        </div>
+      : null
+    }
     <div className="content">
       {props.children}
     </div>

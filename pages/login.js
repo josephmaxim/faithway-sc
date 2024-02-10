@@ -43,9 +43,6 @@ const LoginPage = () => {
       justifyContent="center"
       alignItems="center"
       direction="column"
-      style={{
-        height: '700px'
-      }}
     >
       <Panel bordered style={{ background: '#fff', width: 400 }} header={<h3>Log In</h3>}>
         <Form 
