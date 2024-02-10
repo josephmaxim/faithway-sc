@@ -6,9 +6,11 @@ const connectToDatabase = async () => {
   try {
     const connectionString = `mongodb://${env.DB_USER}:${env.DB_PASS}@${!dev ? env.DB_HOST : `127.0.0.1` }:27017/faithwaysc`
 
+
+    console.log(connectionString)
     await mongoose.connect(connectionString)
 
-    console.log(connectionString, `Connected to database 👍`)
+    console.log(`Connected to database 👍`)
   } catch (error) {
     console.log(error);
   }
