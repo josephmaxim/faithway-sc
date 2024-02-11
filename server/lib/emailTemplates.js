@@ -251,7 +251,7 @@ const billetingEmailTemplate = (data) => {
     footer: `
       <div>
         <p>To address any questions or modifications to your billeting submission reply to this email or contact <a href="mailto:dlindhorst@faithway.org">dlindhorst@faithway.org</a></p>
-        <p class="billeting-id">Billeting ID: <a href="https://sc.faithway.org/dashboard/billetings/${_id}">${_id}</a></p>
+        <p class="billeting-id">Billeting ID: <a href="https://sc.faithway.org/dashboard/billeting/${_id}">${_id}</a></p>
       </div>
     `,
     style: `

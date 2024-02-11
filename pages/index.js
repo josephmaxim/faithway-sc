@@ -309,7 +309,7 @@ const HomePage = () => {
                 })}
                 ref={emailRef}
                 formValue={formValue}
-                onChange={formValue => handleFormChange(formValue)}
+                onChange={(value, e) => handleFormChange(value, e)}
                 fluid
               >
                 <Form.Group controlId="email">
