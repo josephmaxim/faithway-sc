@@ -9,7 +9,7 @@ const billetingSchema = new Schema({
   persons: [
     {
       name: {type: String, default: ""},
-      type: {type: String, enum: ['FEMALE', 'MALE', 'SPONSORS'], default: ""}
+      type: {type: String, enum: ['FEMALE', 'MALE', 'SPONSOR'], default: ""}
     }
   ],
   date: {type: Date, default: Date.now}

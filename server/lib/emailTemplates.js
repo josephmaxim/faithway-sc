@@ -238,11 +238,11 @@ const billetingEmailTemplate = (data) => {
           `
         : ''}
 
-        ${list.sponsors.length > 0 ?
+        ${list.sponsor.length > 0 ?
           `
             <h4>Sponsors:</h4>
             <ul>
-              ${list.sponsors.map((i) => {return `<li>${i}</li>`}).join('\n')}
+              ${list.sponsor.map((i) => {return `<li>${i}</li>`}).join('\n')}
             </ul>
           `
         : ''}

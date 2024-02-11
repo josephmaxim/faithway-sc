@@ -13,12 +13,12 @@ const initialState = {
   list: {
     male: [],
     female: [],
-    sponsors: []
+    sponsor: []
   },
   listForm: {
     male: "",
     female: "",
-    sponsors: "",
+    sponsor: "",
   }
 }
 

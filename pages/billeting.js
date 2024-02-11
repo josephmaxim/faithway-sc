@@ -114,7 +114,7 @@ const BilletingPage = () => {
 
     if(!formRef.current.check()) return;
 
-    if(list.sponsors.length == 0) return notify({
+    if(list.sponsor.length == 0) return notify({
       type:"danger",
       message: "Please enter a minimum of 1 sponsor"
     });
@@ -177,8 +177,8 @@ const BilletingPage = () => {
       { displayItemList("male") }
       <br/>
       <br/>
-      <h6>Sponsors ({list.sponsors.length})</h6>
-      { displayItemList("sponsors") }
+      <h6>Sponsors ({list.sponsor.length})</h6>
+      { displayItemList("sponsor") }
       <Divider/>
 
       <Row>

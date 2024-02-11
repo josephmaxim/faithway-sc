@@ -59,4 +59,14 @@ route.get('/', securedRoute, async (req, res) => {
   return res.status(200).json(billetings)
 })
 
+route.get('/:billetId', securedRoute, async (req, res) => {
+
+  const { billetId } = req.params;
+  
+  const billet = await Billeting.findById(billetId)
+  
+  return res.status(200).json(billet)
+})
+
+
 module.exports = route;

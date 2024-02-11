@@ -29,3 +29,12 @@ export const getBilleting = async () => {
   }
 }
 
+export const getBilletingById = async (id) => {
+  try{
+    const { data } = await axios.get(`${rootPath}/billeting/${id}`);
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+

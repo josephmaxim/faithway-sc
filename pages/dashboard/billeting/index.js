@@ -16,7 +16,7 @@ const Billeting = () => {
         return {
           ...i, 
           personsCount: i.persons.length,
-          sponsorsCount: i.persons.filter((i) => i.type == "SPONSORS").length,
+          sponsorsCount: i.persons.filter((i) => i.type == "SPONSOR").length,
           studentsCount: i.persons.filter((i) => i.type == "MALE" || i.type == "FEMALE").length,
         }
       })

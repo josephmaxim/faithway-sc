@@ -220,7 +220,6 @@ const HomePage = () => {
             </Form.Group>
           </Col>
         </Row>
-
         <Row>
           <Col sm="12" lg="9">
             <Form.Group controlId="church">

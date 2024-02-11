@@ -13,6 +13,14 @@
       .content-block, .sidebar {
         transition: all 0.5s ease-in-out;
       }
+
+      .rs-table {
+        line-height: 1;
+      }
+
+      .controls {
+        display: flex;
+      }
     }
     .show-sidebar {
       .admin-sidebar {
@@ -37,6 +45,10 @@
         
         margin-left: 250px;
       }
+
+      .controls {
+        justify-content: flex-end;
+      }
     }
     .show-sidebar {
       .admin-sidebar {
@@ -45,6 +57,26 @@
       .content-block {
         transform: translate( 0px, 0px);
       }
+    }
+  }
+
+  @media print {
+    .admin-sidebar, .admin-nav, .rs-breadcrumb, .rs-btn-toolbar {
+      display: none;
+    }
+
+    .container {
+      width: 100% !important;
+      max-width: unset;
+      margin-top: 20px;
+    }
+
+    .content-block {
+      .controls {
+        display: none;
+      }
+
+      br {display: none;}
     }
   }
 }
