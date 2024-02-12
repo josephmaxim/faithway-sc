@@ -14,11 +14,19 @@ import {findEventValue} from '@/utils/commons';
 const Students = () => {
 
   const { state, dispatch } = useContext(StudentsContext);
-  const { students, sortColumn, sortType, expandedRowKeys } = state;
+  const { students, sortColumn, sortType, expandedRowKeys, limit, page } = state;
 
   const filteredStudents = () => {
+
+    let filteredStudents = students.filter((v, i) => {
+      const start = limit * (page - 1);
+      const end = start + limit;
+      return i >= start && i < end;
+    });
+  
+
     if (sortColumn && sortType) {
-      return students.sort((a, b) => {
+      return filteredStudents.sort((a, b) => {
         let x = a[sortColumn];
         let y = b[sortColumn];
         if (typeof x === 'string') {
@@ -34,7 +42,7 @@ const Students = () => {
         }
       });
     }
-    return students;
+    return filteredStudents;
   } 
 
   const renderRowExpanded = row => {
@@ -139,10 +147,10 @@ const Students = () => {
           layout={['total', '-', 'limit', '|', 'pager', 'skip']}
           total={students.length}
           limitOptions={[10, 30, 50, 100, 500]}
-          limit={5}
-          activePage={1}
-          onChangePage={() => {}}
-          onChangeLimit={() => {}}
+          limit={limit}
+          activePage={page}
+          onChangePage={value => dispatch({type: "SET_PAGE", payload: {value}})}
+          onChangeLimit={value => dispatch({type: "CHANGE_PAGE_LIMIT", payload: {value}})}
         />
       </div>
       </Panel>

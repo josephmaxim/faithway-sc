@@ -8,6 +8,8 @@ const initialState = {
   sortColumn: "",
   sortType: undefined,
   expandedRowKeys: [],
+  limit: 10,
+  page: 1
 }
 
 function reducer(state, action) {
@@ -33,6 +35,17 @@ function reducer(state, action) {
         ...state,
         expandedRowKeys: state.expandedRowKeys.includes(id) ? state.expandedRowKeys.filter(i => i !== id) : [...state.expandedRowKeys, id]
         // expandedRowKeys: value
+      }
+    case "SET_PAGE": 
+      return {
+        ...state,
+        page: value
+      }
+    case "CHANGE_PAGE_LIMIT": 
+      return {
+        ...state,
+        page: 1,
+        limit: value
       }
     default:
       return state;
