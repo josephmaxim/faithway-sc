@@ -50,7 +50,9 @@ const Students = () => {
       <div style={{borderBottom: "1px solid #f0f0f0", height: '100%'}}>
         <h2>Events:</h2>
         <TagGroup>
-          { row.events.map((i, key) => <Tag key={key} size="lg">{findEventValue(i.value)} (<strong style={{color: "green"}}>{i.totalPoints}</strong>)</Tag>) }
+          { row.events.map((i, key) => <Tag key={key} size="lg">
+            {findEventValue(i.value)}{i.value == 'math' ? ` Grade ${row.mathGrade}` : ''} (<strong style={{color: "green"}}>{i.totalPoints}</strong>)
+          </Tag>) }
         </TagGroup>
       </div>
     );
