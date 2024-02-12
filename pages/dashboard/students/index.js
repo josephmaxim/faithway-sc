@@ -61,8 +61,6 @@ const Students = () => {
     );
   };
 
-  console.log(filters)
-
   const filterInputStyle = { width: "100%", marginBottom:"10px" }
 
   const filterInputOnChange = (e) => {
