@@ -13,8 +13,6 @@ route.get('/', securedRoute, async (req, res) => {
   if(church) query['church'] = church;
   if(event) query['events.value'] = event;
   
-  console.log(query);
-  
   const students = await Student.find(query);
   
   return res.status(200).json(students)

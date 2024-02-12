@@ -24,7 +24,7 @@ const Students = () => {
     let filteredStudents = students.filter((v, i) => {
       const start = limit * (page - 1);
       const end = start + limit;
-      return i >= start && i < end && (filters.name != '' ? v.fullName.includes(filters.name) : true);
+      return i >= start && i < end && (filters.name != '' ? v.fullName.toLowerCase().includes(filters.name.toLowerCase()) : true);
     });
   
 
