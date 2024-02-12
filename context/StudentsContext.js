@@ -6,7 +6,7 @@ export const StudentsContext = createContext();
 
 const initFilters = {
   name: "",
-  grades: '',
+  grade: '',
   church: '',
   event: '',
 }

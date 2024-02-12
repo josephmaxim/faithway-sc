@@ -68,16 +68,21 @@ const Students = () => {
     dispatch({type: "SET_FILTERS", payload: {value, param: name}})
   }
 
-  const handleFilterSubmit = async () => {
-    const value = await getStudents(filters);
-    dispatch({type: "LOAD_STUDENTS", payload: {value}})
-  }
-
   const filtersCount = Object.keys(filters).filter(i => filters[i] != '').length;
 
+  const handleFilterSubmit = async () => {
+    if(filtersCount >= 1) {
+      const value = await getStudents(filters);
+      dispatch({type: "LOAD_STUDENTS", payload: {value}})
+    }
+  }
+
+
   const handleClearFilters = async () => {
-    const value = await getStudents()
-    dispatch({type: 'CLEAR_FILTERS', payload: {value}});
+    if(filtersCount >= 1) {
+      const value = await getStudents()
+      dispatch({type: 'CLEAR_FILTERS', payload: {value}});
+    }
   }
 
   return <DashboardLayout>
@@ -130,7 +135,7 @@ const Students = () => {
         >
 
           <Column width={70} align="center">
-            <HeaderCell>#</HeaderCell>
+            <HeaderCell></HeaderCell>
             <Cell style={{ padding: 5 }}>
               {rowData => (
                 <IconButton
@@ -148,9 +153,9 @@ const Students = () => {
             </Cell>
           </Column>
 
-          <Column flexGrow={1} sortable>
+          <Column flexGrow={1} sortable  minWidth={300}>
             <HeaderCell>Name</HeaderCell>
-            <Cell dataKey="fullName">
+            <Cell dataKey="fullName" >
               {row => (
                 <>
                   <UserIcon style={{width: 15, color: row.gender === 'male' ? '#3498db' : '#9b59b6'}}/> <Link href={`/dashboard/students/${row._id}`} style={{color: '#3c6382'}}>{row.fullName}</Link>
@@ -182,7 +187,7 @@ const Students = () => {
             <Cell dataKey="eventCount"/>
           </Column>
 
-          <Column  flexGrow={1} sortable>
+          <Column  flexGrow={1} sortable minWidth={300}>
             <HeaderCell>Church</HeaderCell>
             <Cell dataKey="church" />
           </Column>
@@ -198,7 +203,7 @@ const Students = () => {
           boundaryLinks
           maxButtons={5}
           size="xs"
-          layout={['total', '-', 'limit', '|', 'pager', 'skip']}
+          layout={['total', '-', 'limit', '|', 'pager']}
           total={students.length}
           limitOptions={[10, 30, 50, 100, 500]}
           limit={limit}
