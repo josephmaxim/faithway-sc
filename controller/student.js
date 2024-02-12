@@ -38,3 +38,12 @@ export const getChurches = async () => {
     console.log(error)
   }
 }
+
+export const getStudent = async (id) => {
+  try {
+    const { data } = await axios.get(`${rootPath}/students/${id}`);
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}

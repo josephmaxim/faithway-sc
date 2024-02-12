@@ -4,9 +4,15 @@ const securedRoute = require('#server/middleware/securedRoute.js')
 
 route.get('/', securedRoute, async (req, res) => {
   
-  const churches = await Student.distinct("church");
+  try {
+
+    const churches = await Student.distinct("church");
+    return res.status(200).json(churches)
+
+  } catch (error) {
+    return res.status(500).json({message: "There was a problem with the server."})
+  }
   
-  return res.status(200).json(churches)
 })
 
 module.exports = route;
