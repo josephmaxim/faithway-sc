@@ -2,7 +2,9 @@ import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 const Dashboard = () => {
   return <DashboardLayout>
-    dwdwddwadwad
+    <div className="container">
+      <h1>Dashboard</h1>
+    </div>
   </DashboardLayout>
 }
 
