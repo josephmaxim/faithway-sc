@@ -30,16 +30,10 @@ const Billeting = () => {
       <MyBreadcrumb separator={'>'} />
       <h1>Billeting</h1>
       <br/>
-      <Panel bordered>
+      <Panel bordered bodyFill>
         <Table
-          // height={420}
           autoHeight={true}
           data={list}
-          
-          // cellBordered
-          onSortColumn={(sortColumn, sortType) => {
-            console.log(sortColumn, sortType);
-          }}
         >
           <Column flexGrow={1}>
             <HeaderCell>Primary Contact</HeaderCell>

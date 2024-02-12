@@ -61,7 +61,7 @@ const BilletPage = () => {
         
       </ButtonToolbar>
       <br/>
-      <Panel bordered>
+      <Panel bordered bodyFill>
         <Table
           autoHeight={true}
           data={filteredPersons}

@@ -1,7 +1,15 @@
 import { createContext, useReducer, useEffect } from 'react';
-import { getStudents } from '@/controller/student';
+import { getStudents, getChurches } from '@/controller/student';
 
 export const StudentsContext = createContext();
+
+
+const initFilters = {
+  name: "",
+  grades: '',
+  church: '',
+  event: '',
+}
 
 const initialState = {
   students: [],
@@ -9,7 +17,10 @@ const initialState = {
   sortType: undefined,
   expandedRowKeys: [],
   limit: 10,
-  page: 1
+  page: 1,
+  churchOptions: [],
+  filters: initFilters,
+  filterIsSet: false
 }
 
 function reducer(state, action) {
@@ -47,9 +58,47 @@ function reducer(state, action) {
         page: 1,
         limit: value
       }
+    case "SET_FILTERS": 
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [param]: value
+        },
+        filterIsSet: false
+      }
+    case "LOAD_STUDENTS":
+      return {
+        ...state,
+        students: formatStudents(value),
+        filterIsSet: true
+      }
+    case "CLEAR_FILTERS":
+      return {
+        ...state,
+        filters: initFilters,
+        filterIsSet: false,
+        students: formatStudents(value),
+      }
     default:
       return state;
   }
+}
+
+const formatStudents = (students) => {
+  return students?.map(i => {
+    const overallMark = Math.round((i.events.reduce((total, i) => total + i.totalPoints, 0) / i.events.length + Number.EPSILON) * 100) / 100;
+    let events = {}
+    i.events.forEach(element => {
+      events[element.value] = element.totalPoints
+    });
+    return {
+      ...i, 
+      overallMark, 
+      eventCount: i.events.length,
+      ...events
+    }
+  })
 }
 
 export default function StudentsProvider(props){
@@ -59,11 +108,15 @@ export default function StudentsProvider(props){
   useEffect(() => {
     async function init(){
       let students = await getStudents();
-      students = students.map(i => {
-        const overallMark = Math.round((i.events.reduce((total, i) => total + i.totalPoints, 0) / i.events.length + Number.EPSILON) * 100) / 100;
-        return {...i, overallMark, eventCount: i.events.length }
-      })
-      dispatch({type: 'INIT', payload: {students}})
+
+      let churchOptions = await getChurches();
+
+      churchOptions = churchOptions.map((i) => ({value: i, label: i}))
+
+      dispatch({type: 'INIT', payload: {
+        students: formatStudents(students),
+        churchOptions
+      }})
     }
     init()
   },[]);

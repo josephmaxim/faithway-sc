@@ -19,9 +19,20 @@ export const submitRegistration = async (form) => {
   }
 }
 
-export const getStudents = async () => {
+export const getStudents = async (filters) => {
   try {
-    const { data } = await axios.get(`${rootPath}/students`);
+    const { data } = await axios.get(`${rootPath}/students`, {
+      params: filters
+    });
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getChurches = async () => {
+  try {
+    const { data } = await axios.get(`${rootPath}/students/church`);
     return data
   } catch (error) {
     console.log(error)

@@ -1,8 +1,10 @@
 import { forwardRef, useContext } from "react"; 
 import StudentsProvider, {StudentsContext} from '@/context/StudentsContext';
 import Link from 'next/link';
-import { Table, Breadcrumb, Panel, IconButton, TagGroup, Tag, Pagination } from 'rsuite';
+import { Table, Breadcrumb, Panel, IconButton, TagGroup, Tag, Pagination, Form, Button, InputPicker, Input, TagPicker, CheckPicker, SelectPicker, ButtonToolbar } from 'rsuite';
 const { Column, HeaderCell, Cell } = Table;
+import { Col, Row } from 'reactstrap';
+import { getStudents } from '@/controller/student';
 
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
@@ -10,18 +12,19 @@ import CollaspedOutlineIcon from '@rsuite/icons/CollaspedOutline';
 import ExpandOutlineIcon from '@rsuite/icons/ExpandOutline';
 import UserIcon from '@rsuite/icons/legacy/User';
 import {findEventValue} from '@/utils/commons';
+import { grades, eventOptions } from '@/utils/InputData'; 
 
 const Students = () => {
 
   const { state, dispatch } = useContext(StudentsContext);
-  const { students, sortColumn, sortType, expandedRowKeys, limit, page } = state;
+  const { students, sortColumn, sortType, expandedRowKeys, limit, page, churchOptions, filters, filterIsSet } = state;
 
   const filteredStudents = () => {
 
     let filteredStudents = students.filter((v, i) => {
       const start = limit * (page - 1);
       const end = start + limit;
-      return i >= start && i < end;
+      return i >= start && i < end && (filters.name != '' ? v.fullName.includes(filters.name) : true);
     });
   
 
@@ -58,14 +61,57 @@ const Students = () => {
     );
   };
 
-  console.log(students)
+  console.log(filters)
+
+  const filterInputStyle = { width: "100%", marginBottom:"10px" }
+
+  const filterInputOnChange = (e) => {
+    const {value, name} = e.target
+    dispatch({type: "SET_FILTERS", payload: {value, param: name}})
+  }
+
+  const handleFilterSubmit = async () => {
+    const value = await getStudents(filters);
+    dispatch({type: "LOAD_STUDENTS", payload: {value}})
+  }
+
+  const filtersCount = Object.keys(filters).filter(i => filters[i] != '').length;
+
+  const handleClearFilters = async () => {
+    const value = await getStudents()
+    dispatch({type: 'CLEAR_FILTERS', payload: {value}});
+  }
 
   return <DashboardLayout>
     <div className="container">
       <MyBreadcrumb separator={'>'} />
       <h1>Students</h1>
       <br/>
-      <Panel bordered>
+      <form>
+        <Row>
+          <Col sm={12} md={3}>
+            <Input placeholder="Name" onChange={(value) => filterInputOnChange({target: {value, name: 'name'}})} style={filterInputStyle} value={filters.name} size="sm"/>
+          </Col>
+          <Col sm={12} md={2}>
+            <InputPicker data={grades} name="grade" size="sm" style={filterInputStyle} onChange={(value) => filterInputOnChange({target: {value, name: 'grade'}})} value={filters.grade} placeholder="Grade"/>
+          </Col>
+          <Col sm={12} md={2}>
+            <SelectPicker data={churchOptions} name="church" onChange={(value) => filterInputOnChange({target: {value, name: 'church'}})} size="sm" value={filters.church} style={{...filterInputStyle, height: 32.85}} placeholder="Church"/>
+          </Col>
+          <Col sm={12} md={3}>
+            <SelectPicker label="Event" data={eventOptions()} onChange={(value) => filterInputOnChange({target: {value, name: 'event'}})} groupBy="role" value={filters.event} size="sm" style={filterInputStyle} />
+          </Col>
+          <Col sm={12} md={2}>
+            <div>
+              <ButtonToolbar style={{flexWrap: "unset"}}>
+              <Button size="sm" appearance="primary" onClick={handleFilterSubmit} style={filterInputStyle} >Apply { !filterIsSet ? filtersCount <= 0 ? "" : `(${filtersCount})` : ""}</Button>
+              <Button size="sm" appearance="default" onClick={handleClearFilters} style={filterInputStyle} >Clear { filterIsSet ? `(${filtersCount})` : ""}</Button>
+            </ButtonToolbar>
+            </div>
+          </Col>
+        </Row>
+      </form>
+      <Panel bordered bodyFill>
         <Table
           shouldUpdateScroll={false}
           autoHeight={true}
@@ -120,10 +166,18 @@ const Students = () => {
             <Cell dataKey="grade" />
           </Column>
 
-          <Column  width={120} align="center" sortable>
-            <HeaderCell>Overall Mark</HeaderCell>
-            <Cell dataKey="overallMark"/>
-          </Column>
+          {
+            filters.event != '' && filterIsSet ? 
+              <Column  width={90} align="center" sortable>
+                <HeaderCell>{findEventValue(filters.event)}</HeaderCell>
+                <Cell dataKey={filters.event} />
+              </Column>
+            : 
+              <Column  width={120} align="center" sortable>
+                <HeaderCell>Overall Mark</HeaderCell>
+                <Cell dataKey="overallMark"/>
+              </Column>
+          }
 
           <Column  width={90} align="center" sortable>
             <HeaderCell># Events</HeaderCell>
