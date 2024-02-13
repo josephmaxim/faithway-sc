@@ -2,7 +2,7 @@ const route = require('express').Router()
 const sendEmail = require('#server/lib/sendEmail.js')
 const { studentRegistrationEmailTemplate }= require('#server/lib/emailTemplates.js');
 const Student = require('#db/models/students.js');
-const { isDev } = require('#utils/commons.js');
+const { isDev, sanitizeInput } = require('#utils/commons.js');
 
 // returns students data
 route.post('/', async (req, res, next) => {
@@ -19,12 +19,12 @@ route.post('/', async (req, res, next) => {
 
   // TODO: save to database...
   const newStudent = new Student({
-    fullName,
-    gender,
-    church,
-    grade,
-    email,
-    events,
+    fullName: sanitizeInput(fullName),
+    gender: gender,
+    church: sanitizeInput(church),
+    grade: grade,
+    email: sanitizeInput(email),
+    events: events,
     mathGrade: mathGrade != '' ? parseInt(mathGrade) : 0
   })
 
