@@ -21,7 +21,7 @@ const StudentPage = () => {
         </Breadcrumb.Item>
         <Breadcrumb.Item as={NavLink} href={`/dashboard/students/${info._id}`} active>
           ({ info.fullName })
-        </Breadcrumb.Item>≈ç
+        </Breadcrumb.Item>
       </Breadcrumb>
       <h1>Student Page</h1>
       <p>Still working on it :)</p>
