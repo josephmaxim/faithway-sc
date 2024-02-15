@@ -64,7 +64,7 @@ route.put('/:studentId',securedRoute, async (req, res) => {
 
 })
 
-route.put('/:studentId/delete', async (req, res, next) => {
+route.put('/:studentId/delete', securedRoute, async (req, res, next) => {
 
   let { studentId } = req.params
   const { password } = req.body;
@@ -85,7 +85,7 @@ route.put('/:studentId/delete', async (req, res, next) => {
   }
 });
 
-route.put('/:studentId/edit-event/:eventKey', async (req, res, next) => {
+route.put('/:studentId/edit-event/:eventKey', securedRoute, async (req, res, next) => {
 
   let { studentId, eventKey } = req.params
   const { value } = req.body;
@@ -106,7 +106,7 @@ route.put('/:studentId/edit-event/:eventKey', async (req, res, next) => {
   }
 });
 
-route.post('/:studentId/delete-event/:eventId', async (req, res, next) => {
+route.post('/:studentId/delete-event/:eventId', securedRoute, async (req, res, next) => {
 
   let { studentId, eventId } = req.params
 
@@ -123,7 +123,7 @@ route.post('/:studentId/delete-event/:eventId', async (req, res, next) => {
 });
 
 
-route.post('/:studentId/add-event', async (req, res, next) => {
+route.post('/:studentId/add-event', securedRoute, async (req, res, next) => {
 
   let { studentId } = req.params;
   const { event, mathEvent } = req.body;
