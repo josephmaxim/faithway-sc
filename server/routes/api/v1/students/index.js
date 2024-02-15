@@ -1,6 +1,7 @@
 const route = require('express').Router()
 const Student = require('#db/models/students.js')
-const securedRoute = require('#server/middleware/securedRoute.js')
+const securedRoute = require('#server/middleware/securedRoute.js');
+const { sanitizeInput } = require('#utils/commons.js');
 
 
 route.get('/', securedRoute, async (req, res) => {
@@ -36,6 +37,28 @@ route.get('/:studentId', securedRoute, async (req, res) => {
   } catch (error) {
     return res.status(500).json({message: "There was a server error while grabbing the student info. Please try again."})
   }
+})
+
+route.put('/:studentId',securedRoute, async (req, res) => {
+  const { studentId } = req.params;
+  const { fullName, grade, gender, church } = req.body;
+
+  if(fullName == '' || grade == 0 || gender == '' || church == '') return res.status(401).json({message: "All fields can't be empty."})
+
+  try {
+    const updatedStudent = await Student.findOneAndUpdate({_id: studentId}, {$set: {
+      fullName: sanitizeInput(fullName),
+      gender: gender,
+      church: sanitizeInput(church),
+      grade: grade, 
+    } }, {new: true, useFindAndModify: false});
+
+    if(updatedStudent) return res.status(200).json(updatedStudent);
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({message: "There was a problem on our end. please try again."})
+  }
+
 })
 
 module.exports = route;

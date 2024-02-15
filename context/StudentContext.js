@@ -45,6 +45,13 @@ function reducer(state, action) {
         ...state,
         formData: {...value, grade: value.grade.toString()}
       }
+    case 'LOAD_UPDATED_DATA':
+      return {
+        ...state,
+        info: value,
+        formData: value,
+        toggleEditInfo: false
+      } 
     default:
       return state;
   }

@@ -47,3 +47,17 @@ export const getStudent = async (id) => {
     console.log(error)
   }
 }
+
+export const updateStudentInfo = async (form) => {
+  try {
+    const { data } = await axios.put(`${rootPath}/students/${form._id}`, form);
+    notify({
+      message: `Successfully updated student info.`,
+      type: "success",
+    });
+    return data;
+  } catch (error) {
+    console.log(error.response.data.error);
+    return null;
+  }
+}

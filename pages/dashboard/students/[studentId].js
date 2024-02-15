@@ -1,12 +1,13 @@
 import { useContext, forwardRef } from "react";
 import Link from 'next/link';
 import StudentProvider, { StudentContext } from "@/context/StudentContext";
-import { Table, Breadcrumb, Panel, IconButton, TagGroup, Tag, Pagination, Form, Button, InputPicker, Input, TagPicker, CheckPicker, SelectPicker, ButtonToolbar, Textarea, RadioGroup, Radio, Divider } from 'rsuite';
+import { Table, Breadcrumb, Panel, IconButton, TagGroup, Tag, Pagination, Form, Button, InputPicker, Input, TagPicker, CheckPicker, SelectPicker, ButtonToolbar, Schema, RadioGroup, Radio, Divider } from 'rsuite';
 const { Column, HeaderCell, Cell } = Table;
 import { Col, Row } from 'reactstrap';
 
 import { grades } from "@/utils/InputData";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
+import { updateStudentInfo } from '@/controller/student';
 
 const StudentPage = () => {
 
@@ -16,6 +17,18 @@ const StudentPage = () => {
   const handleFormChange = (value, e) => {
     dispatch({type: "FORM_CHANGE", payload: {value}})
   }
+
+  const _handleUpdateInfoBtn = async () => {
+    const value = await updateStudentInfo({_id: info._id, ...formData})
+    dispatch({type: "LOAD_UPDATED_DATA", payload: {value}})
+  }
+
+  const model = Schema.Model({
+    fullName: Schema.Types.StringType().isRequired('Please enter the name of student'),
+    gender: Schema.Types.StringType().isRequired('Gender is required'),
+    church: Schema.Types.StringType().isRequired('Church is required'),
+    grade: Schema.Types.StringType().isRequired(`Please enter the student's grade level`)
+  });
 
   return <DashboardLayout>
     <div className="container">
@@ -49,11 +62,12 @@ const StudentPage = () => {
           formValue={formData}
           onChange={(value, e) => handleFormChange(value, e)}
           fluid
+          model={model}
         >
           <Row>
             <Col sm="12" lg="4">
-              <Form.Group controlId="name-1">
-                <Form.ControlLabel>Username</Form.ControlLabel>
+              <Form.Group controlId="fullName">
+                <Form.ControlLabel>Full Name</Form.ControlLabel>
                 {
                   toggleEditInfo ? 
                     <Form.Control name="fullName"/>
@@ -63,8 +77,8 @@ const StudentPage = () => {
               </Form.Group>
             </Col>
             <Col sm="12" lg="4">
-              <Form.Group controlId="name-1">
-                <Form.ControlLabel>Username</Form.ControlLabel>
+              <Form.Group controlId="church">
+                <Form.ControlLabel>Church</Form.ControlLabel>
                 {
                   toggleEditInfo ? 
                     <Form.Control name="church"/>
@@ -106,7 +120,7 @@ const StudentPage = () => {
             {
               toggleEditInfo ?
               <>
-                <Button appearance="primary" onClick={() => dispatch({type: ""})}>Save Changes</Button>
+                <Button appearance="primary" onClick={_handleUpdateInfoBtn}>Save Changes</Button>
                 <Button appearance="subtle" onClick={() => dispatch({type: "CANCEL_EDIT_INFO"})}>Cancel</Button>
               </>
               : 
@@ -115,7 +129,6 @@ const StudentPage = () => {
             
           </ButtonToolbar>
         </Form>
-        
       </Panel>
     </div>
   </DashboardLayout>
