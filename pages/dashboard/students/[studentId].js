@@ -1,4 +1,4 @@
-import { useContext, forwardRef } from "react";
+import { useContext, forwardRef, useRef } from "react";
 import Link from 'next/link';
 import StudentProvider, { StudentContext } from "@/context/StudentContext";
 import { Table, Breadcrumb, Panel, IconButton, TagGroup, Tag, Pagination, Form, Button, InputPicker, Input, TagPicker, CheckPicker, SelectPicker, ButtonToolbar, Schema, RadioGroup, Radio, Divider } from 'rsuite';
@@ -11,6 +11,7 @@ import { updateStudentInfo } from '@/controller/student';
 
 const StudentPage = () => {
 
+  const infoFormRef = useRef();
   const { state, dispatch } = useContext(StudentContext)
   const { info, formData, toggleEditInfo } = state;
 
@@ -19,6 +20,7 @@ const StudentPage = () => {
   }
 
   const _handleUpdateInfoBtn = async () => {
+    if (!infoFormRef.current.check()) return;
     const value = await updateStudentInfo({_id: info._id, ...formData})
     dispatch({type: "LOAD_UPDATED_DATA", payload: {value}})
   }
@@ -62,6 +64,7 @@ const StudentPage = () => {
           formValue={formData}
           onChange={(value, e) => handleFormChange(value, e)}
           fluid
+          ref={infoFormRef}
           model={model}
         >
           <Row>
