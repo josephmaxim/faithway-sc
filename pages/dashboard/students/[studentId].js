@@ -1,5 +1,6 @@
 import { useContext, forwardRef, useRef } from "react";
 import Link from 'next/link';
+import { useRouter } from "next/router";
 import StudentProvider, { StudentContext } from "@/context/StudentContext";
 import { Table, Breadcrumb, Panel, IconButton, TagGroup, Tag, Pagination, Form, Button, InputPicker, Input, TagPicker, CheckPicker, SelectPicker, ButtonToolbar, Schema, RadioGroup, Radio, Divider } from 'rsuite';
 const { Column, HeaderCell, Cell } = Table;
@@ -7,11 +8,17 @@ import { Col, Row } from 'reactstrap';
 
 import { grades } from "@/utils/InputData";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
-import { updateStudentInfo } from '@/controller/student';
+import { updateStudentInfo, deleteStudent } from '@/controller/student';
+
+import PageIcon from '@rsuite/icons/Page';
+import TrashIcon from '@rsuite/icons/Trash';
+import EditIcon from '@rsuite/icons/Edit';
+import CheckIcon from '@rsuite/icons/Check';
 
 const StudentPage = () => {
 
   const infoFormRef = useRef();
+  const router = useRouter();
   const { state, dispatch } = useContext(StudentContext)
   const { info, formData, toggleEditInfo } = state;
 
@@ -23,6 +30,16 @@ const StudentPage = () => {
     if (!infoFormRef.current.check()) return;
     const value = await updateStudentInfo({_id: info._id, ...formData})
     dispatch({type: "LOAD_UPDATED_DATA", payload: {value}})
+  }
+
+  const handleDeleteStudent = async () => {
+    const password = prompt("To delete student record please type the form submission password.")
+
+    if(password) {
+      const res = await deleteStudent({_id: info._id, password })
+      if(res) router.replace('/dashboard/students')
+    }
+    
   }
 
   const model = Schema.Model({
@@ -52,7 +69,8 @@ const StudentPage = () => {
         <Col lg={6} sm={12}>
           <div className="controls">
             <ButtonToolbar>
-              <Button onClick={() => {window.print();}} appearance="default">Print</Button>
+              <Button color="red" onClick={handleDeleteStudent} appearance="ghost" startIcon={<TrashIcon/>}>Delete</Button>
+              <Button color="blue" onClick={() => {window.print();}} appearance="ghost" startIcon={<PageIcon/>}>Print Page</Button>
             </ButtonToolbar>
           </div>
         </Col>
@@ -123,11 +141,11 @@ const StudentPage = () => {
             {
               toggleEditInfo ?
               <>
-                <Button appearance="primary" onClick={_handleUpdateInfoBtn}>Save Changes</Button>
+                <Button appearance="primary" onClick={_handleUpdateInfoBtn} startIcon={<CheckIcon/>}>Save Changes</Button>
                 <Button appearance="subtle" onClick={() => dispatch({type: "CANCEL_EDIT_INFO"})}>Cancel</Button>
               </>
               : 
-                <Button appearance="default"  onClick={() => dispatch({type: "TOGGLE_EDIT_INFO"})}>Edit Info</Button>
+                <Button appearance="default"  onClick={() => dispatch({type: "TOGGLE_EDIT_INFO"})} startIcon={<EditIcon/>}>Edit Info</Button>
             }
             
           </ButtonToolbar>

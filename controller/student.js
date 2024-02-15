@@ -57,7 +57,27 @@ export const updateStudentInfo = async (form) => {
     });
     return data;
   } catch (error) {
-    console.log(error.response.data.error);
+    console.log(error.response.data.error.message);
+    return null;
+  }
+}
+
+export const deleteStudent = async (form) => {
+  try {
+    const { data } = await axios.put(`${rootPath}/students/${form._id}/delete`, {
+      password: form.password
+    });
+    notify({
+      message: `Successfully deleted student.`,
+      type: "success"
+    })
+    return data;
+  } catch (error) {
+    console.log(error)
+    notify({
+      message: error.response.data.message,
+      type: "danger"
+    })
     return null;
   }
 }

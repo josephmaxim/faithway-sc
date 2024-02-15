@@ -2,6 +2,7 @@ const route = require('express').Router()
 const Student = require('#db/models/students.js')
 const securedRoute = require('#server/middleware/securedRoute.js');
 const { sanitizeInput } = require('#utils/commons.js');
+const mongoose = require('mongoose');
 
 
 route.get('/', securedRoute, async (req, res) => {
@@ -60,5 +61,26 @@ route.put('/:studentId',securedRoute, async (req, res) => {
   }
 
 })
+
+route.put('/:studentId/delete', async (req, res, next) => {
+
+  let { studentId } = req.params
+  const { password } = req.body;
+
+  if(password !== process.env.FORM_PASS) return res.status(403).json({message: "Please enter the form submission password."})
+
+  try {
+
+    const updatedStudent = await Student.findOneAndUpdate({_id: studentId}, {$set: {
+      status: 'deleted'
+    } }, {new: true, useFindAndModify: false});
+   
+
+    if(updatedStudent) return res.status(200).json(updatedStudent);
+  } catch (error) {
+    res.status(400).send({error: "Something went wrong. Please contact JM."});
+    console.log(error);
+  }
+});
 
 module.exports = route;
