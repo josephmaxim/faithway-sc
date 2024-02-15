@@ -14,7 +14,8 @@ const studentSchema = new Schema({
     }
   ],
   mathGrade: {type: Number, default: 0},
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  status: { type: String, default: "active"}
 })
 
 module.exports = mongoose.model('student', studentSchema)
