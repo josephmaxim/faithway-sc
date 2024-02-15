@@ -112,3 +112,20 @@ export const removeEvent = async (form) => {
     return;
   }
 }
+
+export const addEvent = async (form) => {
+  try {
+    const { data } = await axios.post(`${rootPath}/students/${form.studentId}/add-event`, form)
+    notify({
+      message: 'Successfully added new event.',
+      type: "success"
+    })
+    return data
+  } catch (error) {
+    notify({
+      message: error.response.data.message,
+      type: "danger"
+    })
+    return;
+  }
+}

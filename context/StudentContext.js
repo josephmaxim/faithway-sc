@@ -13,6 +13,8 @@ const initialState = {
     grade: ""
   },
   toggleEditInfo: false,
+  newEvent: "",
+  newEventMath: ""
 }
 
 function reducer(state, action) {
@@ -30,7 +32,8 @@ function reducer(state, action) {
           ...value,
           events: value.events.map((i) => {return {...i, formValue: i.totalPoints, isEdit: false}})
         },
-        formData: {...value, grade: value.grade.toString()}
+        formData: {...value, grade: value.grade.toString()},
+        newEvent: ""
       }
     case 'TOGGLE_EDIT_INFO':
       return {
@@ -76,6 +79,16 @@ function reducer(state, action) {
             return {...i, formValue: i.totalPoints, isEdit: false}
           })
         }
+      }
+    case 'NEW_EVENT_FORM':
+      return {
+        ...state,
+        newEvent: value
+      }
+    case 'NEW_EVENT_MATH_GRADE':
+      return {
+        ...state,
+        newEventMath: value
       }
     default:
       return state;
