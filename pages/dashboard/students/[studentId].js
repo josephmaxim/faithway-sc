@@ -8,7 +8,7 @@ import { Col, Row } from 'reactstrap';
 
 import { grades } from "@/utils/InputData";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
-import { updateStudentInfo, deleteStudent, updateEventScore } from '@/controller/student';
+import { updateStudentInfo, deleteStudent, updateEventScore, removeEvent } from '@/controller/student';
 import { findEventValue } from '@/utils/commons';
 
 import PageIcon from '@rsuite/icons/Page';
@@ -62,7 +62,11 @@ const StudentPage = () => {
     
   }
 
-  console.log(info.events)
+  const handleRemoveEventBtn = async (id) => {
+    if(!confirm('Are you sure you want to delete this event?')) return; 
+    const value = await removeEvent({studentId: info._id, eventId: id})
+    if(value) dispatch({type: "INIT", payload: {value}})
+  }
 
   return <DashboardLayout>
     <div className="container">
@@ -231,7 +235,7 @@ const StudentPage = () => {
                         <Button size="sm" color="blue" appearance="link" onClick={() => dispatch({type: "TOGGLE_EDIT_EVENT", payload: {id: row._id}})}>
                           Edit
                         </Button>
-                        <Button size="sm" color="red" appearance="link">Remove</Button>
+                        <Button size="sm" color="red" appearance="link" onClick={() => handleRemoveEventBtn(row._id)}>Remove</Button>
                       </>
                     
                   }

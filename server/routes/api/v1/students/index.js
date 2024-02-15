@@ -106,4 +106,20 @@ route.put('/:studentId/edit-event/:eventKey', async (req, res, next) => {
   }
 });
 
+route.post('/:studentId/delete-event/:eventId', async (req, res, next) => {
+
+  let { studentId, eventId } = req.params
+
+  try {
+
+    const updatedStudent = await Student.findOneAndUpdate({_id: studentId}, { $pull: {events: {_id: eventId}}}, {new: true, useFindAndModify: false});
+   
+
+    if(updatedStudent) return res.status(200).json(updatedStudent);
+  } catch (error) {
+    res.status(400).send({error: "Something went wrong. Please contact JM."});
+    console.log(error);
+  }
+});
+
 module.exports = route;

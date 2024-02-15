@@ -95,3 +95,20 @@ export const updateEventScore = async (form) => {
     return null;
   }
 }
+
+export const removeEvent = async (form) => {
+  try {
+    const { data } = await axios.post(`${rootPath}/students/${form.studentId}/delete-event/${form.eventId}`)
+    notify({
+      message: 'Successfully removed event from user.',
+      type: "success"
+    })
+    return data
+  } catch (error) {
+    notify({
+      message: error.response.data.message,
+      type: "danger"
+    })
+    return;
+  }
+}
