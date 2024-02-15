@@ -2,18 +2,20 @@ import { useContext, forwardRef, useRef } from "react";
 import Link from 'next/link';
 import { useRouter } from "next/router";
 import StudentProvider, { StudentContext } from "@/context/StudentContext";
-import { Table, Breadcrumb, Panel, IconButton, TagGroup, Tag, Pagination, Form, Button, InputPicker, Input, TagPicker, CheckPicker, SelectPicker, ButtonToolbar, Schema, RadioGroup, Radio, Divider } from 'rsuite';
+import { Table, Breadcrumb, Panel, IconButton, TagGroup, Tag, Pagination, Form, Button, InputPicker, Input, TagPicker, CheckPicker, SelectPicker,InputNumber, ButtonToolbar, Schema, RadioGroup, Radio, Divider } from 'rsuite';
 const { Column, HeaderCell, Cell } = Table;
 import { Col, Row } from 'reactstrap';
 
 import { grades } from "@/utils/InputData";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
-import { updateStudentInfo, deleteStudent } from '@/controller/student';
+import { updateStudentInfo, deleteStudent, updateEventScore } from '@/controller/student';
+import { findEventValue } from '@/utils/commons';
 
 import PageIcon from '@rsuite/icons/Page';
 import TrashIcon from '@rsuite/icons/Trash';
 import EditIcon from '@rsuite/icons/Edit';
 import CheckIcon from '@rsuite/icons/Check';
+import PlusIcon from '@rsuite/icons/Plus';
 
 const StudentPage = () => {
 
@@ -49,6 +51,19 @@ const StudentPage = () => {
     grade: Schema.Types.StringType().isRequired(`Please enter the student's grade level`)
   });
 
+  const handleSaveEventBtn = async (eventKey, value) => {
+    const newStudent = await updateEventScore({
+      _id: info._id,
+      eventKey,
+      value
+    })
+
+    if(newStudent) dispatch({type: "INIT", payload: {value: newStudent}})
+    
+  }
+
+  console.log(info.events)
+
   return <DashboardLayout>
     <div className="container">
       <Breadcrumb separator=">">
@@ -62,6 +77,7 @@ const StudentPage = () => {
           ({ info.fullName })
         </Breadcrumb.Item>
       </Breadcrumb>
+
       <Row>
         <Col lg={6} sm={12}>
           <h1>Student Information</h1>
@@ -69,7 +85,7 @@ const StudentPage = () => {
         <Col lg={6} sm={12}>
           <div className="controls">
             <ButtonToolbar>
-              <Button color="red" onClick={handleDeleteStudent} appearance="ghost" startIcon={<TrashIcon/>}>Delete</Button>
+              <Button color="red" onClick={handleDeleteStudent} appearance="link" startIcon={<TrashIcon/>}>Delete</Button>
               <Button color="blue" onClick={() => {window.print();}} appearance="ghost" startIcon={<PageIcon/>}>Print Page</Button>
             </ButtonToolbar>
           </div>
@@ -151,6 +167,83 @@ const StudentPage = () => {
           </ButtonToolbar>
         </Form>
       </Panel>
+
+      <br/>
+
+      <Row>
+        <Col lg={6} sm={12}>
+          <h3>Events</h3>
+        </Col>
+        <Col lg={6} sm={12}>
+          <div className="controls">
+            <ButtonToolbar>
+              <Button onClick={() => {}} appearance="ghost" startIcon={<PlusIcon/>}>Add Event</Button>
+            </ButtonToolbar>
+          </div>
+        </Col>
+      </Row>
+
+      <br/>
+
+      <Panel bordered bodyFill>
+        <Table
+          height={420}
+          data={info.events}
+          onSortColumn={(sortColumn, sortType) => {
+            console.log(sortColumn, sortType);
+          }}
+        >
+          <Column flexGrow={1}>
+            <HeaderCell>Event</HeaderCell>
+            <Cell>
+              {row => (findEventValue(row.value))}
+            </Cell>
+          </Column>
+
+          <Column flexGrow={1}>
+            <HeaderCell>Score</HeaderCell>
+            <Cell style={{ padding: '6px', display: 'flex', alignItems: 'center'}}>
+              {row => row.isEdit ? 
+                <InputNumber size="md" postfix="%" value={row.formValue} onChange={(e) => dispatch({type: "EDIT_EVENT_SCORE", payload: {id: row._id, value: e}})} width={200} min={0} max={100}/>
+                :
+                <span>{row.totalPoints}</span>
+              }
+            </Cell>
+          </Column>
+
+          <Column flexGrow={1}>
+            <HeaderCell>Actions</HeaderCell>
+            <Cell style={{ padding: '6px' }}>
+              {(row, key) => {
+                return <ButtonToolbar>
+                  {
+                    row.isEdit ? 
+                      <>
+                        <Button size="sm" color="green" appearance="link" onClick={() => handleSaveEventBtn(key, row.formValue)}>
+                          Save
+                        </Button>
+                        <Button size="sm" appearance="link" onClick={() => dispatch({type: "TOGGLE_EDIT_EVENT", payload: {id: row._id}})}>
+                          Cancel
+                        </Button>
+                      </>
+                    :
+                      <>
+                        <Button size="sm" color="blue" appearance="link" onClick={() => dispatch({type: "TOGGLE_EDIT_EVENT", payload: {id: row._id}})}>
+                          Edit
+                        </Button>
+                        <Button size="sm" color="red" appearance="link">Remove</Button>
+                      </>
+                    
+                  }
+                  
+                  
+                </ButtonToolbar>
+              }}
+            </Cell>
+          </Column>
+        </Table>
+      </Panel>
+
     </div>
   </DashboardLayout>
 }

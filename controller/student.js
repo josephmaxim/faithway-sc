@@ -81,3 +81,17 @@ export const deleteStudent = async (form) => {
     return null;
   }
 }
+
+export const updateEventScore = async (form) => {
+  try {
+    const { data } = await axios.put(`${rootPath}/students/${form._id}/edit-event/${form.eventKey}`, form);
+    notify({
+      message: `Successfully updated event.`,
+      type: "success",
+    });
+    return data;
+  } catch (error) {
+    console.log(error.response.data.error.message);
+    return null;
+  }
+}

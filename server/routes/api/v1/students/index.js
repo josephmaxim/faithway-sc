@@ -85,4 +85,25 @@ route.put('/:studentId/delete', async (req, res, next) => {
   }
 });
 
+route.put('/:studentId/edit-event/:eventKey', async (req, res, next) => {
+
+  let { studentId, eventKey } = req.params
+  const { value } = req.body;
+
+  console.log(studentId, eventKey, value)
+
+  try {
+
+    const updatedStudent = await Student.findOneAndUpdate({_id: studentId}, {$set: {
+      [`events.${eventKey}.totalPoints`] : parseInt(value)
+    } }, {new: true, useFindAndModify: false});
+   
+
+    if(updatedStudent) return res.status(200).json(updatedStudent);
+  } catch (error) {
+    res.status(400).send({error: "Something went wrong. Please contact JM."});
+    console.log(error);
+  }
+});
+
 module.exports = route;

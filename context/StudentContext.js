@@ -26,7 +26,10 @@ function reducer(state, action) {
     case 'INIT':
       return {
         ...state,
-        info: value,
+        info: {
+          ...value,
+          events: value.events.map((i) => {return {...i, formValue: i.totalPoints, isEdit: false}})
+        },
         formData: {...value, grade: value.grade.toString()}
       }
     case 'TOGGLE_EDIT_INFO':
@@ -51,7 +54,29 @@ function reducer(state, action) {
         info: value,
         formData: value,
         toggleEditInfo: false
-      } 
+      }
+    case 'TOGGLE_EDIT_EVENT':
+      return {
+        ...state,
+        info: {
+          ...state.info,
+          events: state.info.events.map((i) => {
+            if(i._id == id) return {...i, isEdit: !i.isEdit, formValue: i.totalPoints}
+            return {...i, formValue: i.totalPoints, isEdit: false}
+          })
+        }
+      }
+    case 'EDIT_EVENT_SCORE':
+      return {
+        ...state,
+        info: {
+          ...state.info,
+          events: state.info.events.map((i) => {
+            if(i._id == id) return {...i, formValue: value}
+            return {...i, formValue: i.totalPoints, isEdit: false}
+          })
+        }
+      }
     default:
       return state;
   }
