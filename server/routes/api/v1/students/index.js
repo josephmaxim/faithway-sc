@@ -16,7 +16,7 @@ route.get('/', securedRoute, async (req, res) => {
 
   try {
     
-    const students = await Student.find(query);
+    const students = await Student.find(query).sort({date: -1});
     return res.status(200).json(students)
 
   } catch (error) {
