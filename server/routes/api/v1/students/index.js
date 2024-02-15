@@ -16,6 +16,8 @@ route.get('/', securedRoute, async (req, res) => {
   if(church) query['church'] = church;
   if(event) query['events.value'] = event;
 
+  query['status'] = { $ne: 'deleted' }
+
   try {
     
     const students = await Student.find(query).sort({date: -1});
