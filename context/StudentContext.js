@@ -6,6 +6,13 @@ export const StudentContext = createContext()
 
 const initialState = {
   info: {},
+  formData: {
+    fullName: "",
+    gender: "",
+    church: "",
+    grade: ""
+  },
+  toggleEditInfo: false,
 }
 
 function reducer(state, action) {
@@ -20,6 +27,23 @@ function reducer(state, action) {
       return {
         ...state,
         info: value,
+        formData: {...value, grade: value.grade.toString()}
+      }
+    case 'TOGGLE_EDIT_INFO':
+      return {
+        ...state,
+        toggleEditInfo: !state.toggleEditInfo
+      }
+    case 'CANCEL_EDIT_INFO': 
+      return {
+        ...state,
+        toggleEditInfo: false,
+        formData: {...state.info, grade: state.info.grade.toString()}
+      }
+    case 'FORM_CHANGE':
+      return {
+        ...state,
+        formData: {...value, grade: value.grade.toString()}
       }
     default:
       return state;
