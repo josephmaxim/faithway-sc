@@ -3,14 +3,15 @@ import Head from 'next/head'
 const HeadTags = (props) => {
 
   const metaImage = props.metaImage || '/img/default_meta.png';
+  const title = `${props.title} - Christian Student Convention | FaithWay Baptist Church`
 
   return <Head>
-    <title>{props.title}</title>
+    <title>{title}</title>
     <meta name="description" content={props.description} />
     <meta property="og:site_name" content="Christian Student Convention" />
     <meta property="og:url" content={props.url} />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={props.title} />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={props.description} />
     <meta property="og:image" content={metaImage}  />
     <meta property="og:image:secure_url" content={metaImage} />
