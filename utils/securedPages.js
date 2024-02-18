@@ -1,1 +1,1 @@
-module.exports = ['/dashboard', '/dashboard/students', '/dashboard/billeting', '/dashboard/billeting/[billetId]'];
+module.exports = ['/dashboard', '/dashboard/students', '/dashboard/billeting', '/dashboard/billeting/[billetId]','/dashboard/students/[studentId]'];
