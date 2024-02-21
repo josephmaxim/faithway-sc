@@ -3,7 +3,9 @@ import GuidelinesNav from "../Nav/GuidelinesNav";
 
 const GuidelinesLayout = (props) => {
 
-  return <MainLayout>
+  return <MainLayout
+    head={props.head}
+  >
     <div className="guidelines-layout">
       <div className="container">
         <div className="content-nav">
