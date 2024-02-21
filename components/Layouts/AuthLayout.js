@@ -2,7 +2,9 @@ import MainLayout from "./MainLayout";
 
 const AuthLayout = (props) => {
 
-  return <MainLayout>
+  return <MainLayout
+    head={props.head}
+  >
     <div className="auth-layout">
       { props.children }
     </div>
