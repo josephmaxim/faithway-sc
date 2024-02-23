@@ -9,7 +9,11 @@ const GuidelineMainPage = (props) => {
   const { data, content } = props
   const { title, description } = data;
 
-  return <GuidelinesLayout>
+  return <GuidelinesLayout
+    head={{
+      title:"Student Guidelines",
+    }}
+  >
     <h1>{title}</h1>
     <div 
       className="content-section" 
