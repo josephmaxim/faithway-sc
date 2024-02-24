@@ -15,6 +15,7 @@ const connectToDatabase = require('./db/index')
 const User = require('#db/models/users.js')
 const localAuthStrategy = require('#server/lib/localAuthStrategy.js')
 const securedPages = require('#utils/securedPages.js')
+const securedPage = require('#server/middleware/securedPage.js');
 
 const routes = require('./server/routes')
 
@@ -61,12 +62,15 @@ app.prepare()
 
   server.use(routes)
 
+  server.get('/dashboard*', securedPage, (req, res) => {
+    return handle(req, res)
+  });
+
   server.get('*', (req, res) => {
     const {path} = req
     const redirectPath = urlHost + req.url;
 
     if(securedPages.includes(path) && !req.isAuthenticated()) return res.redirect(302, `/login?redirect=${encodeURIComponent(redirectPath)}`)
-
     if(path == '/login' && req.isAuthenticated()) return res.redirect(302, '/dashboard')
     return handle(req, res)
   })
