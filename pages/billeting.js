@@ -130,6 +130,9 @@ const BilletingPage = () => {
 
   return <MainLayout
     header="Billeting Form"
+    head={{
+      title:"Billeting Application",
+    }}
   >
     <Form
       ref={formRef}
@@ -138,7 +141,6 @@ const BilletingPage = () => {
       model={model}
       fluid
     >
-
       <Container>
         <Row>
           <Col sm="12" lg="12">
