@@ -191,6 +191,10 @@ const HomePage = () => {
 
   return <MainLayout
     header="Student Registration"
+    head={{
+      title:"Student Registration",
+      
+    }}
   >
     <div className="container">
       <p>For more information please see <Link href="/guidelines">General Student Guidelines</Link></p>
