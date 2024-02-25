@@ -29,16 +29,22 @@ function reducer(state, action) {
 
 export default function UserProvider({children}){
 
-  const pathname = useRouter().pathname
+  const router = useRouter()
+  const {pathname, replace} = router
   const [ userState, userDispatch ] = useReducer(reducer, initialState);
 
   useEffect(()=>{
     async function initUserData(){
       const userData = await getUser();
+      if(!userData._id) return replace('/login')
       userDispatch({type: "LOAD_USER", payload: {value: userData}})
     }
     if(securedPages.includes(pathname)) initUserData()
   }, [pathname])
+
+  if(securedPages.includes(pathname) && !userState.info?._id) {
+    return <></>
+  }
 
   return(
     <UserContext.Provider value={{userState, userDispatch}}>
