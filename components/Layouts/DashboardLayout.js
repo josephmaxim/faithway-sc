@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import AdminProvider, {AdminContext} from '@/context/AdminContext';
 import AdminNav from '@/components/Nav/AdminNav';
 import AdminSidebar from '../Nav/AdminSidebar';
+import HeadTags from '@/components/SEO'
 
 const DashboardLayout = (props) => {
 
@@ -9,6 +10,9 @@ const DashboardLayout = (props) => {
   const {toggleSideBar} = state;
 
   return  <main className="dashboard-layout">
+    <HeadTags
+      {...props.head}
+    />
     <AdminNav/>
     <div className={`main-content ${toggleSideBar ? "show-sidebar" : ""}`}>
       <AdminSidebar/>

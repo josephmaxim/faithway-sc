@@ -85,7 +85,11 @@ const Students = () => {
     }
   }
 
-  return <DashboardLayout>
+  return <DashboardLayout
+    head={{
+      title: "Students"
+    }}
+  >
     <div className="container">
       <MyBreadcrumb separator={'>'} />
       <h1>Students</h1>

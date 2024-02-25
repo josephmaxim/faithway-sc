@@ -17,7 +17,11 @@ const BilletPage = () => {
 
   const filteredPersons = info?.persons?.flatMap(i => selectedFilters.includes(i.type) || selectedFilters.length == 0 ? i : [])
 
-  return <DashboardLayout>
+  return <DashboardLayout
+    head={{
+      title: `Billet - ${info.church}`
+    }}
+  >
     <div className="container">
       <Breadcrumb separator=">">
         <Breadcrumb.Item as={NavLink} href="/dashboard">

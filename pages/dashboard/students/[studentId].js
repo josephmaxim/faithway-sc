@@ -88,7 +88,11 @@ const StudentPage = () => {
     if(value) dispatch({type:"INIT", payload: {value}})
   }
 
-  return <DashboardLayout>
+  return <DashboardLayout
+    head={{
+      title: `Student - ${info.fullName}`
+    }}
+  >
     <div className="container">
       <Breadcrumb separator=">">
         <Breadcrumb.Item as={NavLink} href="/dashboard">

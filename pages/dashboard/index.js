@@ -1,7 +1,11 @@
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
 
 const Dashboard = () => {
-  return <DashboardLayout>
+  return <DashboardLayout
+    head={{
+      title: "Dashboard Overview"
+    }}
+  >
     <div className="container">
       <h1>Dashboard</h1>
     </div>

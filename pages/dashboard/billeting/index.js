@@ -25,7 +25,11 @@ const Billeting = () => {
     init();
   }, [])
 
-  return <DashboardLayout>
+  return <DashboardLayout
+    head={{
+      title: "Billetings"
+    }}
+  >
     <div className="container">
       <MyBreadcrumb separator={'>'} />
       <h1>Billeting</h1>

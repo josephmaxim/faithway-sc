@@ -1,4 +1,5 @@
 import { createContext, useReducer, useEffect } from 'react'
+import Dashboard404Layout from '@/components/Layouts/Dashboard404Layout'
 import { useRouter } from 'next/router'
 import { getStudent } from '@/controller/student'
 
@@ -104,10 +105,15 @@ export default function StudentProvider({children}){
   useEffect(()=>{
     async function init(){
       const student = await getStudent(studentId)
-      dispatch({type: "INIT", payload: {value: student}})
+      if(student) dispatch({type: "INIT", payload: {value: student}})
     }
     if(studentId) init()
   }, [studentId])
+
+  if(!state.info?._id) return <Dashboard404Layout
+    title= "Student Not Found"
+    statusCode={404}
+  />
 
   return(
     <StudentContext.Provider value={{state, dispatch}}>
