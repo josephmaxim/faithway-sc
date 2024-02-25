@@ -74,7 +74,8 @@ function reducer(state, action) {
         ...state,
         students: formatStudents(value),
         filterIsSet: true,
-        isFetched: true
+        isFetched: true,
+        page: 1
       }
     case "INIT_STUDENT_FETCH":
       return {
