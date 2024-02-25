@@ -10,7 +10,11 @@ const GuidelinesPage = (props) => {
   const { slug, data, content } = props
   const { title, description } = data;
 
-  return <GuidelinesLayout>
+  return <GuidelinesLayout
+    head={{
+      title
+    }}
+  >
     <h1>{title}</h1>
     <div 
       className="content-section" 
