@@ -1,6 +1,7 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import { getBilletingById } from '@/controller/billeting'
+import Dashboard404Layout from '@/components/Layouts/Dashboard404Layout'
 
 export const BilletContext = createContext();
 
@@ -68,6 +69,11 @@ export default function BilletProvider(props){
     }
     if(billetId) init()
   },[billetId])
+
+  if(!state.info?._id) return <Dashboard404Layout
+    title= "Billet Not Found"
+    statusCode={404}
+  />
 
   return(
     <BilletContext.Provider value={{state, dispatch}}>

@@ -1,7 +1,7 @@
 import { createContext, useReducer, useEffect } from 'react'
-import Dashboard404Layout from '@/components/Layouts/Dashboard404Layout'
 import { useRouter } from 'next/router'
 import { getStudent } from '@/controller/student'
+import Dashboard404Layout from '@/components/Layouts/Dashboard404Layout'
 
 export const StudentContext = createContext()
 
