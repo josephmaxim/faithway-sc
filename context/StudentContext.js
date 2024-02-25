@@ -2,6 +2,7 @@ import { createContext, useReducer, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getStudent } from '@/controller/student'
 import Dashboard404Layout from '@/components/Layouts/Dashboard404Layout'
+import DashboardLoadingLayout from '@/components/Layouts/DashboardLoadingLayout'
 
 export const StudentContext = createContext()
 
@@ -111,6 +112,8 @@ export default function StudentProvider({children}){
     }
     if(studentId) init()
   }, [studentId])
+
+  if(!state.isFetched) return <DashboardLoadingLayout/>
 
   if(!state.info?._id && state.isFetched) return <Dashboard404Layout
     title= "Student Not Found"
