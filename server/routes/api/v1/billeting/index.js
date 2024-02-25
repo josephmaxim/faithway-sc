@@ -54,7 +54,7 @@ route.post('/', async (req, res) => {
 
 route.get('/', securedRoute, async (req, res) => {
   
-  const billetings = await Billeting.find();
+  const billetings = await Billeting.find().sort({date: -1});;
   
   return res.status(200).json(billetings)
 })
