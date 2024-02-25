@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
       <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
       <meta name="HandheldFriendly" content="true"/>
-      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     </Head>
     <ReactNotifications className="react-notify"/>
     <Component {...pageProps} />
