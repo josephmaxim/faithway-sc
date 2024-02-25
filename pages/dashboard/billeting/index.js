@@ -8,6 +8,7 @@ const { Column, HeaderCell, Cell } = Table;
 const Billeting = () => {
 
   const [list, setList] = useState([]);
+  const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
     async function init(){
@@ -21,6 +22,7 @@ const Billeting = () => {
         }
       })
       setList(billetList)
+      setFetched(true)
     }
     init();
   }, [])
@@ -38,6 +40,7 @@ const Billeting = () => {
         <Table
           autoHeight={true}
           data={list}
+          loading={!fetched}
         >
           <Column flexGrow={1}>
             <HeaderCell>Primary Contact</HeaderCell>

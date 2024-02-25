@@ -20,7 +20,8 @@ const initialState = {
   page: 1,
   churchOptions: [],
   filters: initFilters,
-  filterIsSet: false
+  filterIsSet: false,
+  isFetched: false
 }
 
 function reducer(state, action) {
@@ -32,7 +33,8 @@ function reducer(state, action) {
     case "INIT":    
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
+        isFetched: true
       }
     case "SET_SORT_COLUMN":    
       return {
@@ -71,7 +73,13 @@ function reducer(state, action) {
       return {
         ...state,
         students: formatStudents(value),
-        filterIsSet: true
+        filterIsSet: true,
+        isFetched: true
+      }
+    case "INIT_STUDENT_FETCH":
+      return {
+        ...state,
+        isFetched: false
       }
     case "CLEAR_FILTERS":
       return {

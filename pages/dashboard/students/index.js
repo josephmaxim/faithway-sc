@@ -72,6 +72,7 @@ const Students = () => {
 
   const handleFilterSubmit = async () => {
     if(filtersCount >= 1) {
+      dispatch({type: "INIT_STUDENT_FETCH"})
       const value = await getStudents(filters);
       dispatch({type: "LOAD_STUDENTS", payload: {value}})
     }
@@ -131,13 +132,12 @@ const Students = () => {
               value: sortType 
             }});
           }}
-          loading={false}
           rowKey={'_id'}
           expandedRowKeys={expandedRowKeys}
           renderRowExpanded={renderRowExpanded}
           rowExpandedHeight={150}
+          loading={!state.isFetched}
         >
-
           <Column width={70} align="center">
             <HeaderCell></HeaderCell>
             <Cell style={{ padding: 5 }}>
@@ -157,7 +157,7 @@ const Students = () => {
             </Cell>
           </Column>
 
-          <Column flexGrow={1} sortable  minWidth={300}>
+          <Column flexGrow={1} sortable minWidth={300}>
             <HeaderCell>Name</HeaderCell>
             <Cell dataKey="fullName" >
               {row => (
