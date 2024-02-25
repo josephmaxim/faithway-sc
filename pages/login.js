@@ -36,7 +36,11 @@ const LoginPage = () => {
     password: Schema.Types.StringType().isRequired('Enter your password')
   })
 
-  return <AuthLayout>
+  return <AuthLayout
+    head={{
+      title: "Login"
+    }}
+  >
     <div className="container">
       
     <Stack
