@@ -4,6 +4,7 @@ const sendEmail = require('#server/lib/sendEmail.js')
 const { billetingEmailTemplate }= require('#server/lib/emailTemplates.js');
 const { isDev } = require('#utils/commons.js');
 const securedRoute = require('#server/middleware/securedRoute.js');
+const mongoose = require('mongoose')
 
 route.post('/', async (req, res) => {
 
@@ -62,6 +63,8 @@ route.get('/', securedRoute, async (req, res) => {
 route.get('/:billetId', securedRoute, async (req, res) => {
 
   const { billetId } = req.params;
+
+  if(!mongoose.Types.ObjectId.isValid(billetId)) return res.status(400).json({message: "Not a valid id!"})
   
   const billet = await Billeting.findById(billetId)
   

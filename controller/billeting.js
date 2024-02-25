@@ -26,6 +26,7 @@ export const getBilleting = async () => {
     return data
   } catch (error) {
     console.log(error)
+    return;
   }
 }
 
@@ -35,6 +36,7 @@ export const getBilletingById = async (id) => {
     return data
   } catch (error) {
     console.log(error)
+    return null;
   }
 }
 

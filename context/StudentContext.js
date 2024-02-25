@@ -15,7 +15,8 @@ const initialState = {
   },
   toggleEditInfo: false,
   newEvent: "",
-  newEventMath: ""
+  newEventMath: "",
+  isFetched: false,
 }
 
 function reducer(state, action) {
@@ -31,10 +32,11 @@ function reducer(state, action) {
         ...state,
         info: {
           ...value,
-          events: value.events.map((i) => {return {...i, formValue: i.totalPoints, isEdit: false}})
+          events: value?.events?.map((i) => {return {...i, formValue: i.totalPoints, isEdit: false}})
         },
-        formData: {...value, grade: value.grade.toString()},
-        newEvent: ""
+        formData: {...value, grade: value?.grade?.toString()},
+        newEvent: "",
+        isFetched: true
       }
     case 'TOGGLE_EDIT_INFO':
       return {
@@ -110,7 +112,7 @@ export default function StudentProvider({children}){
     if(studentId) init()
   }, [studentId])
 
-  if(!state.info?._id) return <Dashboard404Layout
+  if(!state.info?._id && state.isFetched) return <Dashboard404Layout
     title= "Student Not Found"
     statusCode={404}
   />

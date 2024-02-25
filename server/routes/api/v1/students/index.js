@@ -34,6 +34,9 @@ route.use('/church', require('./church'))
 route.get('/:studentId', securedRoute, async (req, res) => {
 
   const { studentId } = req.params;
+
+  if(!mongoose.Types.ObjectId.isValid(studentId)) return res.status(400).json({message: "Not a valid id!"})
+
   try {
     const student = await Student.findById(studentId);
     return res.status(200).json(student)

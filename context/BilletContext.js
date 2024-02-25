@@ -10,7 +10,8 @@ const initialState = {
   form: {},
   filters: ['ALL', 'SPONSOR', 'MALE', 'FEMALE'],
   selectedFilters: [],
-  toggleEdit: false
+  toggleEdit: false,
+  isFetched: false
 }
 
 function reducer(state, action) {
@@ -23,7 +24,8 @@ function reducer(state, action) {
     return {
       ...state,
       form: value,
-      info: value
+      info: value,
+      isFetched: true
     }
   case "ADD_FILTER": {
     let filters = state.selectedFilters;
@@ -70,10 +72,12 @@ export default function BilletProvider(props){
     if(billetId) init()
   },[billetId])
 
-  if(!state.info?._id) return <Dashboard404Layout
+  if(!state.info?._id && state.isFetched) return <Dashboard404Layout
     title= "Billet Not Found"
     statusCode={404}
   />
+
+  console.log(state)
 
   return(
     <BilletContext.Provider value={{state, dispatch}}>
