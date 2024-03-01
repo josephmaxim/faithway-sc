@@ -14,7 +14,7 @@ const initialState = {
     church: "",
     grade: ""
   },
-  toggleEditInfo: false,
+  toggleEditInfo: false, 
   newEvent: "",
   newEventMath: "",
   isFetched: false,
