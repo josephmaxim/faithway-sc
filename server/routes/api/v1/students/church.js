@@ -6,7 +6,7 @@ route.get('/', securedRoute, async (req, res) => {
   
   try {
 
-    const churches = await Student.distinct("church");
+    const churches = await Student.distinct("church", {status: {$ne: 'deleted'}});
     return res.status(200).json(churches)
 
   } catch (error) {
