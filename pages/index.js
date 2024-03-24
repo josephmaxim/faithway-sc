@@ -97,7 +97,7 @@ const HomePage = () => {
           if(bypassValidation) disabled = false;
 
           return <Fragment key={key}>
-            <Checkbox key={key} value={box} disabled={disabled}>{row[col][box]}</Checkbox>
+            <Checkbox key={key} value={box} disabled={true}>{row[col][box]}</Checkbox>
             {
               box == "math" && formValue.academics.includes('math') ?
                 <Form.Control name="mathGrade" placeholder="Math Grade" accepter={InputPicker} data={grades}/>
@@ -182,11 +182,11 @@ const HomePage = () => {
     if (!emailRef.current.check()) return;
 
     // TODO: Handle backend call...
-    const res = await submitRegistration({...formValue, selectedEvents})
+    // const res = await submitRegistration({...formValue, selectedEvents})
 
-    if(!res) return; 
+    // if(!res) return; 
     
-    regDispatch({type: "SUBMIT_SUCCESS"});
+    // regDispatch({type: "SUBMIT_SUCCESS"});
   }
 
   return <MainLayout
@@ -197,6 +197,8 @@ const HomePage = () => {
     }}
   >
     <div className="container">
+      Registration is closed... See you on Student Convention 2025
+      <br/>
       <p>For more information please see <Link href="/guidelines">General Student Guidelines</Link></p>
     </div>
     <Form
@@ -205,6 +207,7 @@ const HomePage = () => {
       onChange={(value, e) => handleFormChange(value, e)}
       model={model}
       fluid
+      disabled={true}
     >
       <Container>
         <Row>
@@ -250,7 +253,7 @@ const HomePage = () => {
       <Container>
         <Divider />
         <ButtonToolbar>
-          <Button appearance="primary" onClick={handleReviewRegistration}>Review Registration</Button>
+          <Button appearance="primary" onClick={handleReviewRegistration} disabled>Review Registration</Button>
           <Button appearance="default" onClick={handleFormReset}>Reset Form</Button>
         </ButtonToolbar>
       </Container>
