@@ -85,6 +85,7 @@ const BilletingPage = () => {
               }
             })}
             onKeyDown={(e) => handleAddItem(e)}
+            disabled
           />
         </Col>
         <Col sm="12" lg="2" className="add-item-btn">
@@ -140,6 +141,7 @@ const BilletingPage = () => {
       onChange={formValue => handleFormChange(formValue)}
       model={model}
       fluid
+      disabled
     >
       <Container>
         <Row>
@@ -209,12 +211,13 @@ const BilletingPage = () => {
       <br/>
       <br/>
       <ButtonToolbar>
-        <Button appearance="primary" onClick={handleFormSubmit}>Submit Form</Button>
+        <Button appearance="primary" onClick={handleFormSubmit} disabled>Submit Form</Button>
         <Button 
           appearance="default" 
           onClick={() => confirm("Are you sure you want to reset the form?") ? 
             billetDispatch({type: "RESET_FORM"}) : null
           }
+          disabled
         >
           Reset Form
         </Button>
