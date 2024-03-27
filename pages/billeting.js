@@ -122,9 +122,9 @@ const BilletingPage = () => {
 
     // TODO: handle form submit
    
-    const res = await submitBilleting({...formValue, list});
+    // const res = await submitBilleting({...formValue, list});
     
-    if(!res) return; 
+    // if(!res) return; 
 
     billetDispatch({type: "RESET_FORM"})
   }
